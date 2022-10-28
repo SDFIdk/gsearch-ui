@@ -1,0 +1,20 @@
+{
+  "name": "gsearch-ui",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SDFIdk/gsearch-ui.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SDFIdk/gsearch-ui/issues"
+  },
+  "homepage": "https://github.com/SDFIdk/gsearch-ui#readme"
+}
