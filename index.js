@@ -1,3 +1,1 @@
-export function HELLOWORLD () {
-  console.log('Hello Rasmus')
-}
+export { GSearchUI } from "./src/components/search";
