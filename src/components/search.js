@@ -5,8 +5,8 @@ customElements.define('gsearch-input', GSearchInput)
 export class GSearch extends HTMLElement {
 
   // public properties
-  styles = ``
-  template = `
+  styles = /* css */``
+  template = /* html */`
     <div class="gsearch">
       <gsearch-input></gsearch-input>
     </div>

@@ -1,8 +1,8 @@
 export class GSearchInput extends HTMLElement {
 
   // public properties
-  styles = ``
-  template = ``
+  styles = /* css */``
+  template = /* html */``
 
   // getters
 

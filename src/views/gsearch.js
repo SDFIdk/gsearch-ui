@@ -1,7 +1,7 @@
 import { GSearch } from '../components/search.js'
 
 // Initialize web components
-customElements.define('gsearch-input', GSearchInput)
+customElements.define('gsearch-input', GSearch)
 
 // Variables and state
 let state = {
