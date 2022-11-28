@@ -1,8 +1,11 @@
 export class GSearchInput extends HTMLElement {
 
   // public properties
+  placeholder_text = 'søg...'
   styles = /* css */``
-  template = /* html */``
+  template = /* html */`
+    <input type="text" placeholder="${ this.placeholder_text }">
+  `
 
   // getters
 

@@ -1,4 +1,5 @@
 import { GSearchInput } from './input.js'
+import { search } from '../modules/api.js'
 
 customElements.define('gsearch-input', GSearchInput)
 
@@ -27,4 +28,12 @@ export class GSearch extends HTMLElement {
     // Attach the elements to the shadow DOM
     this.shadowRoot.append(container)
   }
+
+  connectedCallback() {
+    console.log(this.dataset)
+    search('e', 'fd44f26ab5701c01ca9f570e507fe9ab').then((response) => {
+      console.log(response)
+    })
+  }
+
 }

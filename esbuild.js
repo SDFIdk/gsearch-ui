@@ -1,5 +1,5 @@
 const entry_points = {
-  gsearch: 'src/views/gsearch.js',
+  search: 'src/components/search.js',
   style: 'src/index.css'
 }
 
@@ -12,7 +12,8 @@ require('esbuild').serve({
     '.ttf': 'file'
   },
   outdir: 'public',
-  bundle: true
+  bundle: true,
+  format: 'esm'
 }).then(server => {
   console.log(server)
   // Call "stop" on the web server to stop serving
