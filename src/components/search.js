@@ -1,15 +1,19 @@
 import { GSearchInput } from './input.js'
+import { GSearchResults } from './results.js'
 import { search } from '../modules/api.js'
 
-customElements.define('gsearch-input', GSearchInput)
+customElements.define('g-search-input', GSearchInput)
+customElements.define('g-search-results', GSearchResults)
 
 export class GSearch extends HTMLElement {
 
   // public properties
+  timerId
   styles = /* css */``
   template = /* html */`
     <div class="gsearch">
-      <gsearch-input></gsearch-input>
+      <g-search-input>
+      <g-search-results>
     </div>
   `
 
@@ -30,10 +34,20 @@ export class GSearch extends HTMLElement {
   }
 
   connectedCallback() {
-    console.log(this.dataset)
-    search('e', 'fd44f26ab5701c01ca9f570e507fe9ab').then((response) => {
-      console.log(response)
+    this.shadowRoot.addEventListener('input-change', (event) => {
+      this.debounce(() => {
+        if (!event.detail) {
+          return
+        }
+        search(event.detail, this.dataset.token).then((response) => {
+          console.log(response)
+        })
+      })
     })
   }
 
+  debounce(func, wait = 500) {
+    clearTimeout(this.timerId)
+    this.timerId = setTimeout(func, wait)
+  }
 }

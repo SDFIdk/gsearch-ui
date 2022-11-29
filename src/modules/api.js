@@ -13,7 +13,7 @@ function getErrorMsg() {
 function HttpResponseHandler(response, is_json) {
   if (!response.ok) {
     error_msg = response.status
-    interruptLoading()
+    // interruptLoading()
     throw new Error(`HTTP error! ${ response.status }`)
   }
   if (is_json) {
@@ -47,13 +47,13 @@ function HttpResponseHandler(response, is_json) {
     })
     .then((response) => {
       // Finally, return the parsed JSON response
-      endLoading()
+      // endLoading()
       return response
     })
     .catch((error) => {
       // ... unless something goes wrong
       console.error(`Fetch error: ${error}`)
-      endLoading()
+      // endLoading()
       return error
     })
   }
@@ -102,5 +102,6 @@ function search(searchString, token) {
 }
 
 export {
+  getErrorMsg,
   search
 }

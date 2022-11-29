@@ -22,4 +22,11 @@ export class GSearchInput extends HTMLElement {
     // Attach the elements to the shadow DOM
     this.shadowRoot.append(container)
   }
+
+  connectedCallback() {
+    const input = this.shadowRoot.querySelector('input')
+    input.addEventListener('input', (event) => {
+      this.dispatchEvent(new CustomEvent('input-change', { detail: input.value, bubbles: true, composed: true }))
+    })
+  }
 }
