@@ -12,8 +12,8 @@ export class GSearch extends HTMLElement {
   styles = /* css */``
   template = /* html */`
     <div class="gsearch">
-      <g-search-input>
-      <g-search-results>
+      <g-search-input></g-search-input>
+      <g-search-results></g-search-results>
     </div>
   `
 
@@ -40,7 +40,7 @@ export class GSearch extends HTMLElement {
           return
         }
         search(event.detail, this.dataset.token).then((response) => {
-          console.log(response)
+          this.shadowRoot.querySelector('g-search-results').results = response
         })
       })
     })
