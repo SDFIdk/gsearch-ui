@@ -44,6 +44,14 @@ export class GSearch extends HTMLElement {
         })
       })
     })
+    this.shadowRoot.addEventListener('search-road', (event) => {
+      // set input text to road + postnr + city
+      this.shadowRoot.querySelector('g-search-input').searchString = event.detail.vejnavn
+      clearTimeout(this.timerId)
+      search(event.detail.vejnavn, this.dataset.token).then((response) => {
+        this.shadowRoot.querySelector('g-search-results').results = response
+      })
+    })
   }
 
   debounce(func, wait = 500) {

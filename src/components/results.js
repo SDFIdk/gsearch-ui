@@ -5,8 +5,18 @@ customElements.define('g-search-result-box', GSearchResultBox)
 export class GSearchResults extends HTMLElement {
 
   // public properties
-  styles = /* css */``
-  template = /* html */``
+  styles = /* css */`
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+  `
+  template = /* html */`
+    <style>
+      ${this.styles}
+    </style>
+  `
 
   // getters
 
@@ -36,13 +46,32 @@ export class GSearchResults extends HTMLElement {
   updateResults(data) {
     console.log(data)
     const list = document.createElement('ul')
+    // find any roadnames so we can hide any adresse/husnummer that matches
+    const roads = []
     data.forEach((el) => {
+      if (el.type === 'navngivenvej') {
+        roads.push(el)
+      }
+    })
+    data.forEach((el) => {
+      if (el.type === 'navngivenvej') {
+        if (roads.length <= 1) {
+          return
+        }
+      }
+      if (el.type === 'husnummer' || el.type === 'adresse') {
+        if (roads.length > 1 && roads.find((road) => {
+          return road.vejnavn === el.vejnavn && road.postnummer === el.postnummer
+        })) {
+          return
+        }
+      }
       // const listItem = document.createElement('g-search-result-box-' + el.type)
       const listItem = document.createElement('g-search-result-box')
       listItem.result = el
       list.append(listItem)
     })
-    this.shadowRoot.innerHTML = ''
+    this.shadowRoot.innerHTML = this.template
     this.shadowRoot.append(list)
   }
 }

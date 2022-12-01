@@ -2,12 +2,30 @@ export class GSearchInput extends HTMLElement {
 
   // public properties
   placeholder_text = 'søg...'
-  styles = /* css */``
+  styles = /* css */`
+    input {
+      width: calc(100% - 1rem - 2px);
+      padding: 0.5rem;
+      border: 1px solid black;
+    }
+  `
   template = /* html */`
+    <style>
+      ${this.styles}
+    </style>
     <input type="text" placeholder="${ this.placeholder_text }">
   `
 
   // getters
+
+  // setters
+
+  /**
+   * @param {string} searchString
+   */
+  set searchString(searchString) {
+    const input = this.shadowRoot.querySelector('input').value = searchString
+  }
 
   constructor() {
     super()

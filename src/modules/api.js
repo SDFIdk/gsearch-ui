@@ -1,6 +1,7 @@
 const gsearchUrl = 'https://api.dataforsyningen.dk/gsearch_test/v1.0/search?'
-const resources = 'retskreds,stednavn,politikreds,husnummer,opstillingskreds,navngivenvej,kommune,sogn,adresse,matrikelnummer,region,postdistrikt'
-const limit = '100'
+// excluded: ,adresse ,kommune ,postdistrikt ,matrikelnummer
+const resources = 'navngivenvej,husnummer,stednavn,region,retskreds,opstillingskreds,sogn,politikreds'
+const limit = '10'
 
 let error_msg
 

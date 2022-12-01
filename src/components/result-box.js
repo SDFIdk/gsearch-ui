@@ -3,9 +3,19 @@ export class GSearchResultBox extends HTMLElement {
   // public properties
   data = {}
   styles = /* css */`
+    p {
+      margin: 0.5rem 0;
+    }
     .result {
       display: flex;
       flex-direction: row;
+      border: 1px solid black;
+      border-top: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+    .result:hover {
+      background-color: #F3F3F3;
     }
     .icon, .title {
       display: inline-block;
@@ -21,7 +31,14 @@ export class GSearchResultBox extends HTMLElement {
    */
   set result(data) {
     this.data = data
-    this.updateResult(data.type, data.skrivemaade)
+    // husnummer uses `adgangsadressebetegnelse`, adresse uses `adressebetegnelse`. Rest has `praesentation`.
+    let title = data.praesentation || data.adgangsadressebetegnelse || data.adressebetegnelse
+    if (data.type === 'navngivenvej') { // add postnummer and postdistrikter to name
+      title += ' ' + data.postnummer + ' ' + data.postdistrikter
+    } else if (data.type === 'matrikelnummer') { // add postnummer and postdistrikter to name
+      title += ' (Matrikel)'
+    }
+    this.updateResult(title)
   }
 
   constructor() {
@@ -38,15 +55,19 @@ export class GSearchResultBox extends HTMLElement {
     this.shadowRoot.append(this.container)
   }
 
-  updateResult(icon, title) {
+  onClick(data) {
+    if (this.data.type === 'navngivenvej') {
+      this.dispatchEvent(new CustomEvent('search-road', { detail: data, bubbles: true, composed: true }))
+    }
+    // TODO: call the gsearch-ui input function or emit event for the dev to hook up to
+  }
+
+  updateResult(title) {
     const template = /* html */`
       <style>
         ${this.styles}
       </style>
       <div class="result">
-        <div class="icon">
-          <p class="icon-text">${ icon }</p>
-        </div>
         <div class="title">
           <p class="title-text">${ title }</p>
         </div>
@@ -54,5 +75,8 @@ export class GSearchResultBox extends HTMLElement {
       </div>
     `
     this.container.innerHTML = template
+    this.container.querySelector('.result').addEventListener("click", () => {
+      this.onClick(this.data)
+    })
   }
 }
