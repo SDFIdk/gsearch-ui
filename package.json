@@ -4,7 +4,8 @@
   "description": "UI component for GSearch.",
   "main": "index.js",
   "scripts": {
-    "dev": "node esbuild.js",
+    "dev": "export NODE_ENV=development && && node esbuild.js",
+    "build": "export NODE_ENV=production && node esbuild.js",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "repository": {
@@ -12,9 +13,15 @@
     "url": "git+https://github.com/SDFIdk/gsearch-ui.git"
   },
   "keywords": [
-    "Dataforsyningen"
+    "Dataforsyningen",
+    "SDFI",
+    "gsearch"
   ],
-  "author": "Dataforsyningen <support@sdfi.dk>",
+  "author": {
+    "name" : "Styrelsen for Dataforsyning og Infrastruktur",
+    "email" : "support@sdfi.dk",
+    "url" : "https://sdfi.dk/"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/SDFIdk/gsearch-ui/issues"
