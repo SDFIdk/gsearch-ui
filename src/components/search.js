@@ -5,7 +5,7 @@ import { search } from '../modules/api.js'
 customElements.define('g-search-input', GSearchInput)
 customElements.define('g-search-results', GSearchResults)
 
-export class GSearch extends HTMLElement {
+class GSearchUI extends HTMLElement {
 
   // public properties
   timerId
@@ -58,4 +58,8 @@ export class GSearch extends HTMLElement {
     clearTimeout(this.timerId)
     this.timerId = setTimeout(func, wait)
   }
+}
+
+export {
+  GSearchUI
 }

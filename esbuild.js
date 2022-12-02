@@ -1,7 +1,7 @@
 import esbuild from 'esbuild'
 
 const entry_points = {
-  search: 'src/components/search.js',
+  search: 'index.js',
   style: 'src/index.css'
 }
 
