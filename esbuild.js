@@ -1,3 +1,5 @@
+import esbuild from 'esbuild'
+
 const entry_points = {
   search: 'src/components/search.js',
   style: 'src/index.css'
@@ -7,7 +9,7 @@ const entry_points = {
 if (process.env.NODE_ENV === 'development') {
 
   // Development mode watches for file changes and rebuilds
-  require('esbuild').serve({
+  esbuild.serve({
     servedir: 'public',
   }, {
     entryPoints: entry_points,
@@ -27,7 +29,7 @@ if (process.env.NODE_ENV === 'development') {
 } else {
 
   // Production build
-  require('esbuild').build({
+  esbuild.build({
     entryPoints: entry_points,
     loader: {
       '.ttf': 'file'

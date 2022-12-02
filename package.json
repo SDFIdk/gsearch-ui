@@ -3,6 +3,7 @@
   "version": "0.3.0",
   "description": "UI component for GSearch.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "export NODE_ENV=development && node esbuild.js",
     "build": "export NODE_ENV=production && node esbuild.js",

@@ -1,1 +1,1 @@
-export { GSearchUI } from "./src/components/search";
+export { GSearchUI } from "./src/components/search.js";
