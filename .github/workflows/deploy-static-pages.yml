@@ -4,7 +4,8 @@ name: Deploy static content (./public) to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: [$default-branch]
+    branches:
+      - main
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -22,20 +23,7 @@ concurrency:
 
 jobs:
 
-  # Build the static files
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js 18.x
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18.x
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build
-
-  # Deploy to Github Pages
+  # Build and deploy to Github Pages
   deploy:
     environment:
       name: github-pages
@@ -46,6 +34,13 @@ jobs:
         uses: actions/checkout@v3
       - name: Setup Pages
         uses: actions/configure-pages@v2
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
