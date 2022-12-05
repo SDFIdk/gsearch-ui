@@ -15,17 +15,44 @@
         flex-flow: column nowrap;
         justify-content: center;
         align-items: center;
-        padding: 3rem 0;
-      } 
+        padding: 1rem 0;
+      }
+      .config {
+        border: 1px solid black;
+        padding: 0.5rem 1rem;
+        margin: 1rem;
+      }
+      input {
+        width: 100%;
+      }
     </style>
   </head>
   <body>
     <main>
-      <g-search data-token="fd44f26ab5701c01ca9f570e507fe9ab"></g-search>
+      <div class="config">
+        <h3>Configurations</h3>
+        <input id="resources" placeholder="Resources">
+        <p>To search all the resources, use the following string (also used by default): navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikelnummer</p>
+        <p>Links:
+          <a href="https://github.com/SDFIdk/gsearch-uih" target=":blank">GSearch-UI on GitHub</a>
+          <a href="https://github.com/SDFIdk/gsearch" target=":blank">GSearch on GitHub</a>
+          <a href="https://dataforsyningen.dk/" target=":blank">Dataforsyningen.dk</a>
+        </p>
+      </div>
+      <g-search id="gsearch"
+        data-token="fd44f26ab5701c01ca9f570e507fe9ab"
+        data-resources="navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikelnummer"
+      ></g-search>
     </main>
     <script type="module">
+      // Import and define GSearchUI
       import { GSearchUI } from './search.js'
       customElements.define('g-search', GSearchUI)
+
+      // Add EventListener to the resources input
+      document.getElementById('resources').addEventListener('input', (event) => {
+        document.getElementById('gsearch').dataset.resources = event.target.value
+      })
     </script>
   </body>
 </html>

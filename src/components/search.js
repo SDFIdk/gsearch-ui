@@ -39,18 +39,21 @@ class GSearchUI extends HTMLElement {
         if (!event.detail) {
           return
         }
-        search(event.detail, this.dataset.token).then((response) => {
-          this.shadowRoot.querySelector('g-search-results').results = response
-        })
+        this.runSearch(event.detail)
       })
     })
     this.shadowRoot.addEventListener('search-road', (event) => {
       // set input text to road + postnr + city
       this.shadowRoot.querySelector('g-search-input').searchString = event.detail.vejnavn
       clearTimeout(this.timerId)
-      search(event.detail.vejnavn, this.dataset.token).then((response) => {
-        this.shadowRoot.querySelector('g-search-results').results = response
-      })
+      console.log(this.dataset.resources)
+      this.runSearch(event.detail.vejnavn)
+    })
+  }
+
+  runSearch(searchString) {
+    search(searchString, this.dataset.token, this.dataset.resources).then((response) => {
+      this.shadowRoot.querySelector('g-search-results').results = response
     })
   }
 

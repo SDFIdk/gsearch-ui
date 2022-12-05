@@ -1,6 +1,5 @@
 const gsearchUrl = 'https://api.dataforsyningen.dk/gsearch_test/v1.0/search?'
-// excluded: ,adresse ,kommune ,postdistrikt ,matrikelnummer
-const resources = 'navngivenvej,husnummer,stednavn,region,retskreds,opstillingskreds,sogn,politikreds'
+const defaultResources = 'navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikelnummer'
 const limit = '10'
 
 let error_msg
@@ -97,7 +96,10 @@ function HttpResponseHandler(response, is_json) {
   }
 }
 
-function search(searchString, token) {
+function search(searchString, token, resources) {
+  if (!resources) {
+    resources = defaultResources
+  }
   const url = gsearchUrl + 'token=' + token + '&q=' + searchString + '&resources=' + resources + '&limit=' + limit
   return get(url)
 }
