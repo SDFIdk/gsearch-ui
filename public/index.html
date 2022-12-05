@@ -6,6 +6,10 @@
     <meta name="description" content="">
     <title>Gsearch-ui</title>
     <link rel="stylesheet" href="./style.css">
+    <!-- Import openlayers to display search results on a map-->
+    <script src="https://cdn.jsdelivr.net/npm/ol@v7.1.0/dist/ol.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.1.0/ol.css">
+    <script src="https://cdn.jsdelivr.net/npm/proj4@2.8.0/dist/proj4-src.min.js"></script>
     <!-- <script src="config.js"></script> -->
     <style>
       main {
@@ -17,19 +21,33 @@
         align-items: center;
         padding: 1rem 0;
       }
+      input {
+        width: 100%;
+      }
       .config {
         border: 1px solid black;
         padding: 0.5rem 1rem;
         margin: 1rem;
       }
-      input {
-        width: 100%;
+      .demo {
+        width: calc(100% - 2rem);
+        height: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        margin: 1rem;
+      }
+      .g-search {
+        width: 50%;
+      }
+      .map {
+        width: 50%;
+        height: 400px;
       }
     </style>
   </head>
   <body>
     <main>
-      <div class="config">
+      <section class="config">
         <h3>Configurations</h3>
         <input id="resources" placeholder="Resources">
         <p>To search all the resources, use the following string (also used by default): navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikelnummer</p>
@@ -38,11 +56,14 @@
           <a href="https://github.com/SDFIdk/gsearch" target=":blank">GSearch on GitHub</a>
           <a href="https://dataforsyningen.dk/" target=":blank">Dataforsyningen.dk</a>
         </p>
-      </div>
-      <g-search id="gsearch"
-        data-token="fd44f26ab5701c01ca9f570e507fe9ab"
-        data-resources="navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikelnummer"
-      ></g-search>
+      </section>
+      <section class="demo">
+        <g-search id="gsearch" class="g-search"
+          data-token="fd44f26ab5701c01ca9f570e507fe9ab"
+          data-resources="navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikelnummer"
+        ></g-search>
+        <div id="map" class="map"></div>
+      </section>
     </main>
     <script type="module">
       // Import and define GSearchUI
@@ -53,6 +74,41 @@
       document.getElementById('resources').addEventListener('input', (event) => {
         document.getElementById('gsearch').dataset.resources = event.target.value
       })
+
+      // Set up openlayers map
+      const parser = new ol.format.WMTSCapabilities()
+      proj4.defs('EPSG:25832', '+proj=utm +zone=32 +ellps=GRS80 +units=m +no_defs')
+      ol.proj.proj4.register(proj4)
+      fetch('https://api.dataforsyningen.dk/topo_skaermkort_daempet_DAF?service=WMTS&request=GetCapabilities')
+        .then(function (response) {
+          return response.text()
+        })
+        .then(function (text) {
+          const result = parser.read(text)
+          const options = ol.source.WMTS.optionsFromCapabilities(result, {
+            layer: 'topo_skaermkort_daempet',
+            matrixSet: 'View1'
+          })
+          const source = new ol.source.WMTS(options)
+          source.tileLoadFunction = (imageTile, src) => {
+            imageTile.getImage().src = src + '&token=' + document.getElementById('gsearch').dataset.token
+          }
+          new ol.Map({
+            layers: [
+              new ol.layer.Tile({ // '?token=' + document.getElementById('gsearch').dataset.token
+                opacity: 1,
+                source
+              }),
+            ],
+            target: 'map',
+            view: new ol.View({
+              center: ol.proj.fromLonLat([10.61010906, 56.15950977], 'EPSG:25832'),
+              zoom: 7,
+              projection: 'EPSG:25832',
+              constrainResolution: true
+            }),
+          })
+        })
     </script>
   </body>
 </html>

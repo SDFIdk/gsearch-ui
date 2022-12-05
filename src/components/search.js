@@ -46,7 +46,6 @@ class GSearchUI extends HTMLElement {
       // set input text to road + postnr + city
       this.shadowRoot.querySelector('g-search-input').searchString = event.detail.vejnavn
       clearTimeout(this.timerId)
-      console.log(this.dataset.resources)
       this.runSearch(event.detail.vejnavn)
     })
   }
