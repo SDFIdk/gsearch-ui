@@ -44,7 +44,6 @@ export class GSearchResults extends HTMLElement {
   }
 
   updateResults(data) {
-    console.log(data)
     const list = document.createElement('ul')
     // find any roadnames so we can hide any adresse/husnummer that matches
     const roads = []
