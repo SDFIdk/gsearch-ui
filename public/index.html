@@ -61,7 +61,8 @@
         <g-search id="gsearch" class="g-search"
           data-token="fd44f26ab5701c01ca9f570e507fe9ab"
           data-resources="navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikelnummer"
-        ></g-search>
+          data-limit="10"
+          ></g-search>
         <div id="map" class="map"></div>
       </section>
     </main>
@@ -76,6 +77,9 @@
       })
 
       // Set up openlayers map
+      let map
+      let vectorSource = new ol.source.Vector({})
+      const gJsonReader = new ol.format.GeoJSON()
       const parser = new ol.format.WMTSCapabilities()
       proj4.defs('EPSG:25832', '+proj=utm +zone=32 +ellps=GRS80 +units=m +no_defs')
       ol.proj.proj4.register(proj4)
@@ -93,21 +97,34 @@
           source.tileLoadFunction = (imageTile, src) => {
             imageTile.getImage().src = src + '&token=' + document.getElementById('gsearch').dataset.token
           }
-          new ol.Map({
+          map = new ol.Map({
             layers: [
-              new ol.layer.Tile({ // '?token=' + document.getElementById('gsearch').dataset.token
+              new ol.layer.Tile({
                 opacity: 1,
                 source
               }),
+              new ol.layer.Vector({
+                source: vectorSource
+              })
             ],
             target: 'map',
             view: new ol.View({
               center: ol.proj.fromLonLat([10.61010906, 56.15950977], 'EPSG:25832'),
               zoom: 7,
+              maxZoom: 19,
               projection: 'EPSG:25832',
               constrainResolution: true
             }),
           })
+        })
+
+        // Add GSearch-UI event listener
+        document.getElementById('gsearch').addEventListener('gsearch:on-select', (event) => {
+          const geometry = event.detail.geometri || event.detail.vejpunkt_geometri
+          const feature = gJsonReader.readFeature(geometry)
+          vectorSource.clear()
+          vectorSource.addFeature(feature)
+          map.getView().fit(vectorSource.getExtent())
         })
     </script>
   </body>

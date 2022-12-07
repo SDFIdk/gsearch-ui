@@ -51,7 +51,7 @@ class GSearchUI extends HTMLElement {
   }
 
   runSearch(searchString) {
-    search(searchString, this.dataset.token, this.dataset.resources).then((response) => {
+    search(searchString, this.dataset.token, this.dataset.resources, this.dataset.limit).then((response) => {
       this.shadowRoot.querySelector('g-search-results').results = response
     })
   }
