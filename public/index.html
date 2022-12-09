@@ -51,6 +51,7 @@
         <h3>Configurations</h3>
         <input id="resources" placeholder="Resources">
         <p>To search all the resources, use the following string (also used by default): navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikelnummer</p>
+        <input id="limit" placeholder="limit">
         <p>Links:
           <a href="https://github.com/SDFIdk/gsearch-uih" target=":blank">GSearch-UI on GitHub</a>
           <a href="https://github.com/SDFIdk/gsearch" target=":blank">GSearch on GitHub</a>
@@ -74,6 +75,11 @@
       // Add EventListener to the resources input
       document.getElementById('resources').addEventListener('input', (event) => {
         document.getElementById('gsearch').dataset.resources = event.target.value
+      })
+
+      // Add EventListener to the limit input
+      document.getElementById('limit').addEventListener('input', (event) => {
+        document.getElementById('gsearch').dataset.limit = event.target.value
       })
 
       // Set up openlayers map
