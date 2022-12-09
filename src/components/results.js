@@ -53,11 +53,6 @@ export class GSearchResults extends HTMLElement {
       }
     })
     data.forEach((el) => {
-      if (el.type === 'navngivenvej') {
-        if (roads.length <= 1) {
-          return
-        }
-      }
       if (el.type === 'husnummer' || el.type === 'adresse') {
         if (roads.length > 1 && roads.find((road) => {
           return road.vejnavn === el.vejnavn && road.postnummer === el.postnummer
