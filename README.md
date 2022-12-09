@@ -24,12 +24,12 @@ You can then use GSearch-UI like in the example below.
 
 ```html
 <main>
-  <g-search id="gsearch" data-token="INSERTYOURTOKENHERE"></g-search>
+  <g-search data-token="INSERTYOURTOKENHERE"></g-search>
 </main>
 <script type="module">
   import { GSearchUI } from './search.js'
   customElements.define('g-search', GSearchUI)
-  document.getElementById('gsearch').addEventListener('gsearch:on-select', (event) => {
+  document.querySelector("g-search").addEventListener('gsearch:select', (event) => {
     // handle the click here
     // event.detail contains the result object
   })
@@ -48,4 +48,4 @@ GSearch-UI is configured using html data attributes.
 
 ### On click event
 
-When clicking on a result displayed in the GSearch-UI it will dispatch a custom event, `gsearch:on-select`, that contains the result object in event.detail. The structure of the object depends on the resource. See more information about the different resouces here: https://github.com/SDFIdk/gsearch/tree/dokumentation/doc.
+When clicking on a result displayed in the GSearch-UI it will dispatch a custom event, `gsearch:select`, that contains the result object in event.detail. The structure of the object depends on the resource. See more information about the different resouces here: https://github.com/SDFIdk/gsearch/tree/dokumentation/doc.

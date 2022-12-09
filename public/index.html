@@ -125,7 +125,7 @@
         })
 
         // Add GSearch-UI event listener
-        document.getElementById('gsearch').addEventListener('gsearch:on-select', (event) => {
+        document.getElementById('gsearch').addEventListener('gsearch:select', (event) => {
           const geometry = event.detail.geometri || event.detail.vejpunkt_geometri
           const feature = gJsonReader.readFeature(geometry)
           vectorSource.clear()
