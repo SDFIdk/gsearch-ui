@@ -59,7 +59,7 @@ export class GSearchResultBox extends HTMLElement {
     if (this.data.type === 'navngivenvej') {
       this.dispatchEvent(new CustomEvent('search-road', { detail: data, bubbles: true, composed: true }))
     }
-    // TODO: call the gsearch-ui input function or emit event for the dev to hook up to
+    this.dispatchEvent(new CustomEvent('gsearch:on-select', { detail: data, bubbles: true, composed: true }))
   }
 
   updateResult(title) {

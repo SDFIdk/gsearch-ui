@@ -44,7 +44,6 @@ export class GSearchResults extends HTMLElement {
   }
 
   updateResults(data) {
-    console.log(data)
     const list = document.createElement('ul')
     // find any roadnames so we can hide any adresse/husnummer that matches
     const roads = []
@@ -66,6 +65,7 @@ export class GSearchResults extends HTMLElement {
           return
         }
       }
+      // if the result boxes end up with enough significant differences to justify a class for each, use this:
       // const listItem = document.createElement('g-search-result-box-' + el.type)
       const listItem = document.createElement('g-search-result-box')
       listItem.result = el
