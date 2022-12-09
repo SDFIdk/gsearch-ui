@@ -45,21 +45,23 @@ export class GSearchResults extends HTMLElement {
 
   updateResults(data) {
     const list = document.createElement('ul')
+    /* Commented out for testing purposes to show the clean data.
     // find any roadnames so we can hide any adresse/husnummer that matches
     const roads = []
     data.forEach((el) => {
       if (el.type === 'navngivenvej') {
         roads.push(el)
       }
-    })
+    }) */
     data.forEach((el) => {
+      /* Commented out for testing purposes to show the clean data.
       if (el.type === 'husnummer' || el.type === 'adresse') {
         if (roads.length > 1 && roads.find((road) => {
           return road.vejnavn === el.vejnavn && road.postnummer === el.postnummer
         })) {
           return
         }
-      }
+      } */
       // if the result boxes end up with enough significant differences to justify a class for each, use this:
       // const listItem = document.createElement('g-search-result-box-' + el.type)
       const listItem = document.createElement('g-search-result-box')

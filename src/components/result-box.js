@@ -33,11 +33,13 @@ export class GSearchResultBox extends HTMLElement {
     this.data = data
     // husnummer uses `adgangsadressebetegnelse`, adresse uses `adressebetegnelse`. Rest has `praesentation`.
     let title = data.praesentation || data.adgangsadressebetegnelse || data.adressebetegnelse
+    /* Commented out for testing purposes to show the clean data.
     if (data.type === 'navngivenvej') { // add postnummer and postdistrikter to name
       title += ' ' + data.postnummer + ' ' + data.postdistrikter
     } else if (data.type === 'matrikelnummer') { // add postnummer and postdistrikter to name
       title += ' (Matrikel)'
     }
+    */
     this.updateResult(title)
   }
 
