@@ -1,6 +1,8 @@
 import { GSearchResultBox } from './result-box.js'
+import { GSearchNoResultBox } from './no-result-box.js'
 
 customElements.define('g-search-result-box', GSearchResultBox)
+customElements.define('g-search-no-result-box', GSearchNoResultBox)
 
 export class GSearchResults extends HTMLElement {
 
@@ -45,6 +47,11 @@ export class GSearchResults extends HTMLElement {
 
   updateResults(data) {
     const list = document.createElement('ul')
+    // If no results, show a message for that
+    if (!data[0]) {
+      const listItem = document.createElement('g-search-no-result-box')
+      list.append(listItem)
+    }
     /* Commented out for testing purposes to show the clean data.
     // find any roadnames so we can hide any adresse/husnummer that matches
     const roads = []
