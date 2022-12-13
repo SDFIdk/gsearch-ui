@@ -9,6 +9,10 @@ export class GSearchResults extends HTMLElement {
   // public properties
   styles = /* css */`
     ul {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
       list-style-type: none;
       padding: 0;
       margin: 0;

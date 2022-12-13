@@ -10,8 +10,17 @@ class GSearchUI extends HTMLElement {
 
   // public properties
   timerId
-  styles = /* css */``
+  styles = /* css */`
+    g-search-results {
+      position: relative;
+      width: 100%;
+      display: block;
+    }
+  `
   template = /* html */`
+    <style>
+      ${ this.styles }
+    </style>
     <div class="gsearch">
       <g-search-input></g-search-input>
       <g-search-results></g-search-results>
