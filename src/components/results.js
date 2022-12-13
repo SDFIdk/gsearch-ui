@@ -9,6 +9,10 @@ export class GSearchResults extends HTMLElement {
   // public properties
   styles = /* css */`
     ul {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
       list-style-type: none;
       padding: 0;
       margin: 0;
@@ -51,7 +55,7 @@ export class GSearchResults extends HTMLElement {
     if (!data[0]) {
       const listItem = document.createElement('g-search-no-result-box')
       list.append(listItem)
-    }
+    
     /* Commented out for testing purposes to show the clean data.
     // find any roadnames so we can hide any adresse/husnummer that matches
     const roads = []
@@ -60,7 +64,7 @@ export class GSearchResults extends HTMLElement {
         roads.push(el)
       }
     }) */
-    else {
+    } else {
       data.forEach((el) => {
         /* Commented out for testing purposes to show the clean data.
         if (el.type === 'husnummer' || el.type === 'adresse') {
@@ -80,4 +84,11 @@ export class GSearchResults extends HTMLElement {
     this.shadowRoot.innerHTML = this.template
     this.shadowRoot.append(list)
   }
+
+  /** Clears the result list
+   */
+  clear() {
+    this.shadowRoot.innerHTML = this.template
+  }
+
 }

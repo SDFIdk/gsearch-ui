@@ -1,6 +1,7 @@
 import { GSearchInput } from './input.js'
 import { GSearchResults } from './results.js'
 import { search } from '../modules/api.js'
+import { getLabel } from '../modules/type-label.js'
 
 customElements.define('g-search-input', GSearchInput)
 customElements.define('g-search-results', GSearchResults)
@@ -9,8 +10,17 @@ class GSearchUI extends HTMLElement {
 
   // public properties
   timerId
-  styles = /* css */``
+  styles = /* css */`
+    g-search-results {
+      position: relative;
+      width: 100%;
+      display: block;
+    }
+  `
   template = /* html */`
+    <style>
+      ${ this.styles }
+    </style>
     <div class="gsearch">
       <g-search-input></g-search-input>
       <g-search-results></g-search-results>
@@ -47,6 +57,12 @@ class GSearchUI extends HTMLElement {
       this.shadowRoot.querySelector('g-search-input').searchString = event.detail.vejnavn
       clearTimeout(this.timerId)
       this.runSearch(event.detail.vejnavn)
+    })
+
+    // Clears result list when a result was selected
+    this.shadowRoot.addEventListener('gsearch:select', (event) => {
+      this.shadowRoot.querySelector('g-search-input').searchString = getLabel(event.detail)
+      this.shadowRoot.querySelector('g-search-results').clear()
     })
   }
 
