@@ -6,7 +6,7 @@ export class GSearchInput extends HTMLElement {
     input {
       width: calc(100% - 1rem - 2px);
       padding: 0.5rem;
-      border: 1px solid black;
+      border: 1px solid var(--border-color, #000);
     }
   `
   template = /* html */`
