@@ -10,7 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/ol@v7.1.0/dist/ol.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.1.0/ol.css">
     <script src="https://cdn.jsdelivr.net/npm/proj4@2.8.0/dist/proj4-src.min.js"></script>
-    <!-- <script src="config.js"></script> -->
     <style>
       main {
         width: 100%;
@@ -76,8 +75,8 @@
         <g-search id="gsearch" class="g-search"
           data-token="fd44f26ab5701c01ca9f570e507fe9ab"
           data-resources="navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikelnummer"
-          data-limit="10"
-          ></g-search>
+          data-limit="10">
+        </g-search>
         <div class="right-column">
           <div id="map" class="map"></div>
           <div class="json">
@@ -147,7 +146,7 @@
         // Add GSearch-UI event listener
         document.getElementById('gsearch').addEventListener('gsearch:select', (event) => {
           // display the geometry on the map
-          const geometry = event.detail.geometri || event.detail.vejpunkt_geometri
+          const geometry = event.detail.geometry
           const feature = gJsonReader.readFeature(geometry)
           vectorSource.clear()
           vectorSource.addFeature(feature)

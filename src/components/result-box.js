@@ -1,3 +1,5 @@
+import { normalize } from "../modules/data.js"
+
 export class GSearchResultBox extends HTMLElement {
 
   // public properties
@@ -61,7 +63,7 @@ export class GSearchResultBox extends HTMLElement {
     if (this.data.type === 'navngivenvej') {
       this.dispatchEvent(new CustomEvent('search-road', { detail: data, bubbles: true, composed: true }))
     }
-    this.dispatchEvent(new CustomEvent('gsearch:select', { detail: data, bubbles: true, composed: true }))
+    this.dispatchEvent(new CustomEvent('gsearch:select', { detail: normalize(data), bubbles: true, composed: true }))
   }
 
   updateResult(title) {
