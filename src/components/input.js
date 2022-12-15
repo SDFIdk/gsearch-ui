@@ -4,9 +4,11 @@ export class GSearchInput extends HTMLElement {
   placeholder_text = 'søg...'
   styles = /* css */`
     input {
-      width: var(--gs-input-width, calc(100% - 1rem - 2px));
+      box-sizing: border-box;
+      width: var(--gs-input-width, 100%);
       padding: var(--gs-input-padding, 0.5rem);
       border: var(--gs-border-width, 1px) solid var(--gs-border-color, #000);
+      background-color: var(--gs-background-color, transparent);
     }
   `
   template = /* html */`
