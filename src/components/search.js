@@ -8,22 +8,56 @@ customElements.define('g-search-results', GSearchResults)
 class GSearchUI extends HTMLElement {
 
   // public properties
+  input_element
+  results_element
   timerId
   styles = /* css */`
+
+    .gs-input {
+      box-sizing: border-box;
+      padding: 0.5rem 1rem;
+    }
+
     g-search-results {
-      position: relative;
-      width: 100%;
+      position: relative; 
+      width: 100%; 
       display: block;
+    }
+
+    .gs-result-list {
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      right: 0; 
+      list-style: none; 
+      padding: 0; 
+      margin: 0;
+    }
+
+    .gs-result-item,
+    .gs-no-result-item {
+      cursor: pointer;
+      display: block;
+      border: solid 1px #000;
+      border-top: none;
+    }
+
+    .gs-title-text {
+      margin: 0;
+      padding: 0.5rem 1rem;
+    }
+
+    .gs-result-item:hover,
+    .gs-result-item:focus {
+      background-color: var(--highligt-color, #eee);
     }
   `
   template = /* html */`
     <style>
       ${ this.styles }
     </style>
-    <div class="gsearch">
-      <g-search-input data-placeholder="${ this.dataset.placeholder || '' }"></g-search-input>
-      <g-search-results></g-search-results>
-    </div>
+    <g-search-input data-placeholder="${ this.dataset.placeholder || '' }"></g-search-input>
+    <g-search-results></g-search-results>
   `
 
   // getters
@@ -35,20 +69,24 @@ class GSearchUI extends HTMLElement {
 
   constructor() {
     super()
-    this.createShadowDOM()
+    this.createDOM()
   }
 
-  createShadowDOM() {
-    // Create a shadow root
-    this.attachShadow({mode: 'open'}) // sets and returns 'this.shadowRoot'
-    const container = document.createElement('article')
+  createDOM() {
+    const container = document.createElement('div')
+    container.className = 'gs-wrapper'
     container.innerHTML = this.template
-    // Attach the elements to the shadow DOM
-    this.shadowRoot.append(container)
+    
+    // Attach the elements to the component DOM
+    this.append(container)
+
+    // Save element references
+    this.input_element = this.querySelector('g-search-input')
+    this.results_element = this.querySelector('g-search-results')
   }
 
   connectedCallback() {
-    this.shadowRoot.addEventListener('input-change', (event) => {
+    this.addEventListener('input-change', (event) => {
       this.debounce(() => {
         if (!event.detail) {
           return
@@ -56,31 +94,31 @@ class GSearchUI extends HTMLElement {
         this.runSearch(event.detail)
       })
     })
-    this.shadowRoot.addEventListener('search-road', (event) => {
+    this.addEventListener('search-road', (event) => {
       // set input text to road + postnr + city
-      this.shadowRoot.querySelector('g-search-input').searchString = event.detail.vejnavn
+      this.input_element.searchString = event.detail.vejnavn
       clearTimeout(this.timerId)
       this.runSearch(event.detail.vejnavn)
     })
 
     // Clears result list when a result was selected
-    this.shadowRoot.addEventListener('gsearch:select', (event) => {
-      this.shadowRoot.querySelector('g-search-input').searchString = event.detail.label
-      this.shadowRoot.querySelector('g-search-results').clear()
+    this.addEventListener('gsearch:select', (event) => {
+      this.input_element.searchString = event.detail.label
+      this.results_element.clear()
     })
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'data-placeholder') {
       if (newValue) {
-        this.shadowRoot.querySelector('g-search-input').dataset.placeholder = newValue
+        this.input_element.dataset.placeholder = newValue
       }
     }
   }
 
   runSearch(searchString) {
     search(searchString, this.dataset.token, this.dataset.resources, this.dataset.limit).then((response) => {
-      this.shadowRoot.querySelector('g-search-results').results = response
+      this.results_element.results = response
     })
   }
 
