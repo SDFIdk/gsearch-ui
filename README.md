@@ -43,9 +43,9 @@ GSearch-UI is configured using html data attributes.
 |attribute name|description|required|updates dynamically|default|
 |:---|---|---|---|---|
 |`data-token`|A valid token from https://dataforsyningen.dk/|yes|yes|`NaN`|
-|`data-resources`|The resources that should be searched in. See more information in the [GSearch documentation](https://github.com/SDFIdk/gsearch/tree/dokumentation/doc)|no|yes|`navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikelnummer`|
+|`data-resources`|The resources that should be searched in. See more information in the [GSearch documentation](https://github.com/SDFIdk/gsearch/tree/main/doc)|no|yes|`navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikelnummer`|
 |`data-limit`|The number of matches for each resource to be shown. The maximum value is 100.|no|yes|`10`|
 
 ### On click event
 
-When clicking on a result displayed in the GSearch-UI it will dispatch a custom event, `gsearch:select`, that contains the result object in event.detail. The structure of the object depends on the resource. See more information about the different resouces here: https://github.com/SDFIdk/gsearch/tree/dokumentation/doc.
+When clicking on a result displayed in the GSearch-UI it will dispatch a custom event, `gsearch:select`, that contains the result object in event.detail. The structure of the object depends on the resource. See more information about the different resouces here: https://github.com/SDFIdk/gsearch/tree/main/doc.
