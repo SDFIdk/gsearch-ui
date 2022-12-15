@@ -11,15 +11,16 @@ export class GSearchResultBox extends HTMLElement {
     .result {
       display: flex;
       flex-direction: row;
-      border: 1px solid black;
+      border: var(--gs-border-width, 1px) solid var(--gs-border-color, #000);
       border-top: none;
-      padding: 0.5rem 1rem;
+      padding: var(--gs-list-padding, 0.5rem 1rem);
       cursor: pointer;
+      background-color: var(--gs-background-color, #fff);
     }
     .result:hover {
-      background-color: #F3F3F3;
+      background-color: var(--gs-highlight-color, #F3F3F3);
     }
-    .icon, .title {
+    .title {
       display: inline-block;
     }
   `
