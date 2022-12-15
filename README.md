@@ -45,6 +45,7 @@ GSearch-UI is configured using html data attributes.
 |`data-token`|A valid token from https://dataforsyningen.dk/|yes|yes|`NaN`|
 |`data-resources`|The resources that should be searched in. See more information in the [GSearch documentation](https://github.com/SDFIdk/gsearch/tree/main/doc)|no|yes|`navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikelnummer`|
 |`data-limit`|The number of matches for each resource to be shown. The maximum value is 100.|no|yes|`10`|
+|`data-placeholder`|The placeholder text to show in the input field.|no|yes|`søg...`|
 
 ### On click event
 

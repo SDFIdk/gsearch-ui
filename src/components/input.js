@@ -1,7 +1,7 @@
 export class GSearchInput extends HTMLElement {
 
   // public properties
-  placeholder_text = 'søg...'
+  default_placeholder_text = 'søg...'
   styles = /* css */`
     input {
       box-sizing: border-box;
@@ -15,10 +15,15 @@ export class GSearchInput extends HTMLElement {
     <style>
       ${this.styles}
     </style>
-    <input type="text" placeholder="${ this.placeholder_text }">
+    <input type="text" placeholder="${ this.dataset.placeholder || this.default_placeholder_text }">
   `
 
   // getters
+  static get observedAttributes() { 
+    return [
+      'data-placeholder'
+    ]
+  }
 
   // setters
 
@@ -48,5 +53,13 @@ export class GSearchInput extends HTMLElement {
     input.addEventListener('input', (event) => {
       this.dispatchEvent(new CustomEvent('input-change', { detail: input.value, bubbles: true, composed: true }))
     })
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'data-placeholder') {
+      if (newValue) {
+        this.shadowRoot.querySelector('input').placeholder = newValue
+      }
+    }
   }
 }
