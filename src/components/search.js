@@ -21,12 +21,17 @@ class GSearchUI extends HTMLElement {
       ${ this.styles }
     </style>
     <div class="gsearch">
-      <g-search-input></g-search-input>
+      <g-search-input data-placeholder="${ this.dataset.placeholder || '' }"></g-search-input>
       <g-search-results></g-search-results>
     </div>
   `
 
   // getters
+  static get observedAttributes() { 
+    return [
+      'data-placeholder'
+    ]
+  }
 
   constructor() {
     super()
@@ -63,6 +68,14 @@ class GSearchUI extends HTMLElement {
       this.shadowRoot.querySelector('g-search-input').searchString = event.detail.label
       this.shadowRoot.querySelector('g-search-results').clear()
     })
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'data-placeholder') {
+      if (newValue) {
+        this.shadowRoot.querySelector('g-search-input').dataset.placeholder = newValue
+      }
+    }
   }
 
   runSearch(searchString) {
