@@ -23,6 +23,9 @@
       input {
         width: 100%;
       }
+      input[type=checkbox] {
+        width: auto;
+      }
       .config {
         border: 1px solid black;
         padding: 0.5rem 1rem;
@@ -62,8 +65,9 @@
     <main>
       <section class="config">
         <h3>Configurations</h3>
-        <input id="resources" placeholder="Resources">
-        <p>To search all the resources, use the following string (also used by default): navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikelnummer</p>
+        <input type="checkbox" id="resource-as-string"><label for="resource-as-string">Set resources as a string</label>
+        <div id="resource-inputs"></div>
+        <p>To search all the resources, use the following string (also used by default when input is empty): navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikelnummer</p>
         <input id="limit" placeholder="limit">
         <p>Links:
           <a href="https://github.com/SDFIdk/gsearch-ui" target=":blank">GSearch-UI on GitHub</a>
@@ -89,9 +93,69 @@
       import { GSearchUI } from './search.js'
       customElements.define('g-search', GSearchUI)
 
-      // Add EventListener to the resources input
-      document.getElementById('resources').addEventListener('input', (event) => {
-        document.getElementById('gsearch').dataset.resources = event.target.value
+      // resources
+      const resources = ['navngivenvej','husnummer','adresse','stednavn','kommune','region','retskreds','postdistrikt','opstillingskreds','sogn','politikreds','matrikelnummer']
+
+      // Create string input for resources
+      const createStringInput = () => {
+        const stringInput = document.createElement('input')
+        stringInput.id = 'string-resources'
+        stringInput.placeholder = 'Resources'
+        document.getElementById('resource-inputs').innerHTML = ''
+        document.getElementById('resource-inputs').append(stringInput)
+        // Add EventListener to the resources input
+        stringInput.addEventListener('input', (event) => {
+          if (event.target.value) {
+            document.getElementById('gsearch').dataset.resources = event.target.value
+          } else {
+            document.getElementById('gsearch').dataset.resources = resources.toString()
+          }
+        })
+      }
+
+      const setResourcesFromCheckboxes = () => {
+        let resourceString = ''
+        resources.forEach(resource => {
+          if (document.getElementById(resource).checked) {
+            resourceString += resource + ','
+          }
+        })
+        if (resourceString) {
+          document.getElementById('gsearch').dataset.resources = resourceString
+        } else {
+          document.getElementById('gsearch').dataset.resources = resources.toString()
+        }
+      }
+
+      // Create checkbox inputs for resources
+      const createCheckboxInputs = () => {
+        document.getElementById('resource-inputs').innerHTML = ''
+        resources.forEach(resource => {
+          const checkboxInput = document.createElement('input')
+          checkboxInput.id = resource
+          checkboxInput.type = 'checkbox'
+          const label = document.createElement('label')
+          label.htmlFor = resource
+          label.innerHTML = resource
+          document.getElementById('resource-inputs').append(checkboxInput)
+          document.getElementById('resource-inputs').append(label)
+          // Add EventListener to the resources input
+          checkboxInput.addEventListener('input', setResourcesFromCheckboxes)
+        })
+      }
+
+      createCheckboxInputs()
+      document.getElementById('gsearch').dataset.resources = resources.toString()
+
+      // Add Eventlistener to resource-as-string
+      document.getElementById('resource-as-string').addEventListener('input', (event) => {
+        if (event.target.checked) {
+          createStringInput()
+          document.getElementById('gsearch').dataset.resources = resources.toString()
+        } else {
+          createCheckboxInputs()
+          document.getElementById('gsearch').dataset.resources = resources.toString()
+        }
       })
 
       // Add EventListener to the limit input
