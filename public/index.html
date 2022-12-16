@@ -31,6 +31,9 @@
         padding: 0.5rem 1rem;
         margin: 1rem;
       }
+      input[type="checkbox"] + label {
+        margin-right: 1rem;
+      }
       .demo {
         width: calc(100% - 2rem);
         height: 100%;
@@ -65,10 +68,18 @@
     <main>
       <section class="config">
         <h3>Configurations</h3>
-        <input type="checkbox" id="resource-as-string"><label for="resource-as-string">Set resources as a string</label>
-        <div id="resource-inputs"></div>
-        <p>To search all the resources, use the following string (also used by default when input is empty): navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikelnummer</p>
-        <input id="limit" placeholder="limit">
+        <div style="display: flex; flex-flow: row nowrap;">
+          <div>
+            <h4>Resources</h4>
+            <div id="resource-inputs"></div>
+            <input type="checkbox" id="resource-as-string"><label for="resource-as-string">Set resources as a string</label>
+            <p>To search all the resources, use the following string (also used by default when input is empty): navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikelnummer</p>
+          </div>
+          <div style="flex-grow: 1;">
+            <h4>Limit</h4>
+            <input id="limit" placeholder="limit">
+          </div>
+        </div>
         <p>Links:
           <a href="https://github.com/SDFIdk/gsearch-ui" target=":blank">GSearch-UI on GitHub</a>
           <a href="https://github.com/SDFIdk/gsearch" target=":blank">GSearch on GitHub</a>
