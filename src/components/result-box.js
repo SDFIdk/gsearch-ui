@@ -4,28 +4,7 @@ export class GSearchResultBox extends HTMLElement {
 
   // public properties
   data = {}
-  styles = /* css */`
-    p {
-      margin: 0.5rem 0;
-    }
-    .result {
-      display: flex;
-      flex-direction: row;
-      border: var(--gs-border-width, 1px) solid var(--gs-border-color, #000);
-      border-top: none;
-      padding: var(--gs-list-padding, 0.5rem 1rem);
-      cursor: pointer;
-      background-color: var(--gs-background-color, #fff);
-    }
-    .result:hover {
-      background-color: var(--gs-highlight-color, #F3F3F3);
-    }
-    .title {
-      display: inline-block;
-    }
-  `
 
-  // getters
 
   // setters
 
@@ -48,16 +27,6 @@ export class GSearchResultBox extends HTMLElement {
 
   constructor() {
     super()
-    this.createShadowDOM()
-  }
-
-  createShadowDOM() {
-    // Create a shadow root
-    this.attachShadow({mode: 'open'}) // sets and returns 'this.shadowRoot'
-    this.container = document.createElement('li')
-    // this.container.innerHTML = this.template
-    // Attach the elements to the shadow DOM
-    this.shadowRoot.append(this.container)
   }
 
   onClick(data) {
@@ -69,18 +38,10 @@ export class GSearchResultBox extends HTMLElement {
 
   updateResult(title) {
     const template = /* html */`
-      <style>
-        ${this.styles}
-      </style>
-      <div class="result">
-        <div class="title">
-          <p class="title-text">${ title }</p>
-        </div>
-        <div class="arrow"></div>
-      </div>
+      <p class="gs-title-text">${ title }</p>
     `
-    this.container.innerHTML = template
-    this.container.querySelector('.result').addEventListener("click", () => {
+    this.innerHTML = template
+    this.addEventListener("click", () => {
       this.onClick(this.data)
     })
   }

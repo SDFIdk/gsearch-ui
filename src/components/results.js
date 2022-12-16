@@ -7,24 +7,8 @@ customElements.define('g-search-no-result-box', GSearchNoResultBox)
 export class GSearchResults extends HTMLElement {
 
   // public properties
-  styles = /* css */`
-    ul {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-    }
-  `
-  template = /* html */`
-    <style>
-      ${this.styles}
-    </style>
-  `
+  list_element
 
-  // getters
 
   // setters
 
@@ -37,24 +21,30 @@ export class GSearchResults extends HTMLElement {
 
   constructor() {
     super()
-    this.createShadowDOM()
+    this.createDOM()
   }
 
-  createShadowDOM() {
-    // Create a shadow root
-    this.attachShadow({mode: 'open'}) // sets and returns 'this.shadowRoot'
-    const container = document.createElement('ul')
-    container.innerHTML = this.template
-    // Attach the elements to the shadow DOM
-    this.shadowRoot.append(container)
+  createDOM() {
+    this.list_element = document.createElement('ul')
+    this.list_element.className = 'gs-result-list'
+
+    // Attach the elements to the component DOM
+    this.append(this.list_element)
   }
 
   updateResults(data) {
-    const list = document.createElement('ul')
+    
+    this.list_element.innerHTML = ''
+
     // If no results, show a message for that
     if (!data[0]) {
-      const listItem = document.createElement('g-search-no-result-box')
-      list.append(listItem)
+      
+      const noResultListItem = document.createElement('li')
+      noResultListItem.className = 'gs-no-result-item'
+      const noResultBox = document.createElement('g-search-no-result-box')
+
+      this.list_element.append(noResultListItem)
+      noResultListItem.append(noResultBox)
     
     /* Commented out for testing purposes to show the clean data.
     // find any roadnames so we can hide any adresse/husnummer that matches
@@ -76,19 +66,21 @@ export class GSearchResults extends HTMLElement {
         } */
         // if the result boxes end up with enough significant differences to justify a class for each, use this:
         // const listItem = document.createElement('g-search-result-box-' + el.type)
-        const listItem = document.createElement('g-search-result-box')
-        listItem.result = el
-        list.append(listItem)
+
+        const listItem = document.createElement('li')
+        listItem.className = 'gs-result-item'
+        const resultBox = document.createElement('g-search-result-box')
+        resultBox.result = el
+        listItem.append(resultBox)
+        this.list_element.append(listItem)
       })
     }
-    this.shadowRoot.innerHTML = this.template
-    this.shadowRoot.append(list)
   }
 
   /** Clears the result list
    */
   clear() {
-    this.shadowRoot.innerHTML = this.template
+    this.list_element.innerHTML = ''
   }
 
 }
