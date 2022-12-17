@@ -15,7 +15,6 @@ class GSearchUI extends HTMLElement {
 
     .gs-input {
       box-sizing: border-box;
-      padding: 0.5rem 1rem;
     }
 
     g-search-results {
@@ -38,18 +37,15 @@ class GSearchUI extends HTMLElement {
     .gs-no-result-item {
       cursor: pointer;
       display: block;
-      border: solid 1px #000;
-      border-top: none;
     }
 
     .gs-title-text {
       margin: 0;
-      padding: 0.5rem 1rem;
     }
 
     .gs-result-item:hover,
     .gs-result-item:focus {
-      background-color: var(--highligt-color, #eee);
+      background-color: var(--highlight, #eee);
     }
   `
   template = /* html */`
