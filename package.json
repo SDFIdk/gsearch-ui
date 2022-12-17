@@ -32,6 +32,7 @@
     "@dataforsyningen/icons": "^0.1.31"
   },
   "devDependencies": {
+    "@dataforsyningen/css": "^0.4.0",
     "esbuild": "^0.14.39"
   }
 }
