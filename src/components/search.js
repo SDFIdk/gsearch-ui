@@ -8,7 +8,7 @@ customElements.define('g-search-results', GSearchResults)
 class GSearchUI extends HTMLElement {
 
   // public properties
-  input_element
+  input_container
   results_element
   timerId
   styles = /* css */`
@@ -31,6 +31,7 @@ class GSearchUI extends HTMLElement {
       list-style: none; 
       padding: 0; 
       margin: 0;
+      background-color: var(--gs-background, #fff);
     }
 
     .gs-result-item,
@@ -43,9 +44,13 @@ class GSearchUI extends HTMLElement {
       margin: 0;
     }
 
+    .gs-result-list .active {
+      background-color: var(--gs-current, #eee)
+    }
+    
     .gs-result-item:hover,
     .gs-result-item:focus {
-      background-color: var(--highlight, #eee);
+      background-color: var(--gs-highlight, #ddd);
     }
   `
   template = /* html */`
@@ -77,11 +82,14 @@ class GSearchUI extends HTMLElement {
     this.append(container)
 
     // Save element references
-    this.input_element = this.querySelector('g-search-input')
+    this.input_container = this.querySelector('g-search-input')
     this.results_element = this.querySelector('g-search-results')
+    this.input_element = this.input_container.querySelector('input')
+    
   }
 
   connectedCallback() {
+
     this.addEventListener('input-change', (event) => {
       this.debounce(() => {
         if (!event.detail) {
@@ -92,22 +100,47 @@ class GSearchUI extends HTMLElement {
     })
     this.addEventListener('search-road', (event) => {
       // set input text to road + postnr + city
-      this.input_element.searchString = event.detail.vejnavn
+      this.input_container.searchString = event.detail.vejnavn
       clearTimeout(this.timerId)
       this.runSearch(event.detail.vejnavn)
     })
 
     // Clears result list when a result was selected
     this.addEventListener('gsearch:select', (event) => {
-      this.input_element.searchString = event.detail.label
+      this.input_container.searchString = event.detail.label
       this.results_element.clear()
+    })
+
+    // Close result list when user moves focus
+    this.addEventListener('blur', () => {
+      this.results_element.clear()
+    })
+
+    this.addEventListener('keydown', (event) => {
+      switch(event.key) {
+        case ' ':
+          this.selectActiveItemHandler()
+          break
+        case 'Enter':
+          this.selectActiveItemHandler()
+          break
+        case 'Escape':
+          this.endSearchHandler()
+          break
+        case 'ArrowDown':
+          this.moveActiveItemHandler('next')
+          break
+        case 'ArrowUp':
+          this.moveActiveItemHandler('previous')
+          break
+      }
     })
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'data-placeholder') {
       if (newValue) {
-        this.input_element.dataset.placeholder = newValue
+        this.input_container.dataset.placeholder = newValue
       }
     }
   }
@@ -122,6 +155,33 @@ class GSearchUI extends HTMLElement {
     clearTimeout(this.timerId)
     this.timerId = setTimeout(func, wait)
   }
+
+  setFocusOnElement(element) {
+    element.classList.add('active')
+    this.input_element.value = element.querySelector('.gs-title-text').innerText
+  }
+
+  endSearchHandler() {
+    this.input_element.focus()
+    this.results_element.clear()
+  }
+
+  moveActiveItemHandler(direction) {
+    const current_item = this.querySelector('.active')
+    const next_item = current_item[`${ direction }Sibling`]
+    if (next_item) {
+      this.setFocusOnElement(next_item)
+      current_item.classList.remove('active')
+    }
+  }
+
+  selectActiveItemHandler() {
+    const current_item = this.querySelector('.active')
+    // Dispatch click event to set selection methods on element in motion
+    current_item.childNodes[0].dispatchEvent(new Event('click'))
+    this.endSearchHandler()
+  }
+
 }
 
 export {
