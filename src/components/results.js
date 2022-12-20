@@ -74,6 +74,9 @@ export class GSearchResults extends HTMLElement {
         listItem.append(resultBox)
         this.list_element.append(listItem)
       })
+      // Set first element in list as active
+      const first_li_element = this.list_element.querySelector('li')
+      first_li_element.classList.add('active')
     }
   }
 
