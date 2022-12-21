@@ -28,9 +28,6 @@
     "url": "https://github.com/SDFIdk/gsearch-ui/issues"
   },
   "homepage": "https://github.com/SDFIdk/gsearch-ui#readme",
-  "dependencies": {
-    "@dataforsyningen/icons": "^0.1.31"
-  },
   "devDependencies": {
     "@dataforsyningen/css": "^0.4.0",
     "esbuild": "^0.14.39"
