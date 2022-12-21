@@ -118,9 +118,6 @@ class GSearchUI extends HTMLElement {
 
     this.addEventListener('keydown', (event) => {
       switch(event.key) {
-        case ' ':
-          this.selectActiveItemHandler()
-          break
         case 'Enter':
           this.selectActiveItemHandler()
           break
