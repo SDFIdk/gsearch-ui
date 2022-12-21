@@ -128,6 +128,7 @@ class GSearchUI extends HTMLElement {
           this.moveActiveItemHandler('next')
           break
         case 'ArrowUp':
+          event.preventDefault() // Don't let the cursor return to position 0 in input field
           this.moveActiveItemHandler('previous')
           break
       }
