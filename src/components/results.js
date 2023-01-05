@@ -21,7 +21,6 @@ export class GSearchResults extends HTMLElement {
 
   constructor() {
     super()
-    this.createDOM()
   }
 
   createDOM() {
@@ -30,6 +29,10 @@ export class GSearchResults extends HTMLElement {
 
     // Attach the elements to the component DOM
     this.append(this.list_element)
+  }
+
+  connectedCallback() { 
+    this.createDOM()
   }
 
   updateResults(data) {

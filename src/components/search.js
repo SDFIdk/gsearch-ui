@@ -70,7 +70,6 @@ class GSearchUI extends HTMLElement {
 
   constructor() {
     super()
-    this.createDOM()
   }
 
   createDOM() {
@@ -89,7 +88,9 @@ class GSearchUI extends HTMLElement {
   }
 
   connectedCallback() {
+    this.createDOM()
 
+    // add event listeners
     this.addEventListener('input-change', (event) => {
       this.debounce(() => {
         if (!event.detail) {
@@ -98,6 +99,7 @@ class GSearchUI extends HTMLElement {
         this.runSearch(event.detail)
       })
     })
+
     this.addEventListener('search-road', (event) => {
       // set input text to road + postnr + city
       this.input_container.searchString = event.detail.vejnavn
