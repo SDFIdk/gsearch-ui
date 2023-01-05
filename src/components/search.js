@@ -34,9 +34,12 @@ class GSearchUI extends HTMLElement {
       background-color: var(--gs-background, #fff);
     }
 
+    .gs-result-item {
+      cursor: pointer;
+    }
+
     .gs-result-item,
     .gs-no-result-item {
-      cursor: pointer;
       display: block;
     }
 
