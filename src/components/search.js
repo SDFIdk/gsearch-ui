@@ -181,7 +181,7 @@ class GSearchUI extends HTMLElement {
   selectActiveItemHandler() {
     const current_item = this.querySelector('.active')
     // Dispatch click event to set selection methods on element in motion
-    current_item.childNodes[0].dispatchEvent(new Event('click'))
+    current_item.dispatchEvent(new Event('click'))
     this.endSearchHandler()
   }
 

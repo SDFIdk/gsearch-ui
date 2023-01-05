@@ -1,5 +1,6 @@
 import { GSearchResultBox } from './result-box.js'
 import { GSearchNoResultBox } from './no-result-box.js'
+import { normalize } from "../modules/data.js"
 
 customElements.define('g-search-result-box', GSearchResultBox)
 customElements.define('g-search-no-result-box', GSearchNoResultBox)
@@ -75,6 +76,9 @@ export class GSearchResults extends HTMLElement {
         const resultBox = document.createElement('g-search-result-box')
         resultBox.result = el
         listItem.append(resultBox)
+        listItem.addEventListener("click", () => {
+          this.onClick(el)
+        })
         this.list_element.append(listItem)
       })
       // Set first element in list as active
@@ -83,10 +87,20 @@ export class GSearchResults extends HTMLElement {
     }
   }
 
+  /**
+   * Dispatch an on click event for the element.
+   * @param {*} data 
+   */
+  onClick(data) {
+    if (data.type === 'navngivenvej') {
+      this.dispatchEvent(new CustomEvent('search-road', { detail: data, bubbles: true, composed: true }))
+    }
+    this.dispatchEvent(new CustomEvent('gsearch:select', { detail: normalize(data), bubbles: true, composed: true }))
+  }
+
   /** Clears the result list
    */
   clear() {
     this.list_element.innerHTML = ''
   }
-
 }
