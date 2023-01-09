@@ -150,7 +150,7 @@ class GSearchUI extends HTMLElement {
 
   runSearch(searchString) {
     search(searchString, this.dataset.token, this.dataset.resources, this.dataset.limit).then((response) => {
-      this.results_element.results = response
+      this.results_element.results = response.flat()
     })
   }
 

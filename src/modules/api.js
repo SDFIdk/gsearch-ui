@@ -1,5 +1,5 @@
-const gsearchUrl = 'https://api.dataforsyningen.dk/gsearch_test/v1.0/search?'
-const defaultResources = 'navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikelnummer'
+const gsearchUrl = 'https://api.dataforsyningen.dk/gsearch_test/v1.0/'
+const defaultResources = 'navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikel'
 const defaultLimit = 10
 
 let error_msg
@@ -97,14 +97,25 @@ function HttpResponseHandler(response, is_json) {
 }
 
 function search(searchString, token, resources, limit) {
+  // if missing values use defaults
   if (!resources) {
     resources = defaultResources
   }
   if (!limit) {
     limit = defaultLimit
   }
-  const url = gsearchUrl + 'token=' + token + '&q=' + searchString + '&resources=' + resources + '&limit=' + limit
-  return get(url)
+  const promises = []
+  const splitString = resources.split(',')
+  splitString.forEach(string => {
+    const url = gsearchUrl + string + '?token=' + token + '&q=' + searchString + '&limit=' + limit
+    promises.push(get(url).then(response => {
+      response.forEach(el => {
+        el.type = string
+      })
+      return response
+    }))
+  })
+  return Promise.all(promises)
 }
 
 export {
