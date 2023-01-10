@@ -1,5 +1,5 @@
-const gsearchUrl = 'https://api.dataforsyningen.dk/gsearch_test/v1.0/search?'
-const defaultResources = 'navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikelnummer'
+const gsearchUrl = 'https://api.dataforsyningen.dk/gsearch_test/v1.0/'
+const defaultResources = 'navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikel'
 const defaultLimit = 10
 
 let error_msg
@@ -59,52 +59,26 @@ function HttpResponseHandler(response, is_json) {
   }
 }
 
-/** 
- * POST HTTP request to API
- * @param {string} url - API service URL, including endpoint paths and query parameters.
- * @param {object} requestbody - Request data
- * @param {string} token - Authentication token from Dataforsyningen
- * @returns {object} response object
- */
- function post(url, requestbody, token) {
-  if (!url || !token || !requestbody) {
-    console.error('Could not fetch data. Missing API token, request body, or URL')
-  } else {
-    // startLoading()
-    return fetch( url, {
-      method: 'POST',
-      headers: {
-        'token': token,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(requestbody)
-    })
-    .then((response) => {
-      return HttpResponseHandler(response)
-    })
-    .then((response) => {
-      // Finally, return the parsed JSON response
-      // endLoading()
-      return response
-    })
-    .catch((error) => {
-      // ... unless something goes wrong
-      console.error(`Fetch error: ${error}`)
-      // endLoading()
-      return error
-    })
-  }
-}
-
 function search(searchString, token, resources, limit) {
+  // if missing values use defaults
   if (!resources) {
     resources = defaultResources
   }
   if (!limit) {
     limit = defaultLimit
   }
-  const url = gsearchUrl + 'token=' + token + '&q=' + searchString + '&resources=' + resources + '&limit=' + limit
-  return get(url)
+  const promises = []
+  const splitString = resources.split(',')
+  splitString.forEach(string => {
+    const url = gsearchUrl + string + '?token=' + token + '&q=' + searchString + '&limit=' + limit
+    promises.push(get(url).then(response => {
+      response.forEach(el => {
+        el.type = string
+      })
+      return response
+    }))
+  })
+  return Promise.all(promises)
 }
 
 export {
