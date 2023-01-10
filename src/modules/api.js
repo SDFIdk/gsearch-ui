@@ -59,43 +59,6 @@ function HttpResponseHandler(response, is_json) {
   }
 }
 
-/** 
- * POST HTTP request to API
- * @param {string} url - API service URL, including endpoint paths and query parameters.
- * @param {object} requestbody - Request data
- * @param {string} token - Authentication token from Dataforsyningen
- * @returns {object} response object
- */
- function post(url, requestbody, token) {
-  if (!url || !token || !requestbody) {
-    console.error('Could not fetch data. Missing API token, request body, or URL')
-  } else {
-    // startLoading()
-    return fetch( url, {
-      method: 'POST',
-      headers: {
-        'token': token,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(requestbody)
-    })
-    .then((response) => {
-      return HttpResponseHandler(response)
-    })
-    .then((response) => {
-      // Finally, return the parsed JSON response
-      // endLoading()
-      return response
-    })
-    .catch((error) => {
-      // ... unless something goes wrong
-      console.error(`Fetch error: ${error}`)
-      // endLoading()
-      return error
-    })
-  }
-}
-
 function search(searchString, token, resources, limit) {
   // if missing values use defaults
   if (!resources) {
