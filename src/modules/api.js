@@ -1,5 +1,5 @@
 const gsearchUrl = 'https://api.dataforsyningen.dk/gsearch_test/v1.0/'
-const defaultResources = 'navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postdistrikt,opstillingskreds,sogn,politikreds,matrikel'
+const defaultResources = 'navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postnummer,opstillingskreds,sogn,politikreds,matrikel'
 const defaultLimit = 10
 
 let error_msg
