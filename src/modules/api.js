@@ -72,6 +72,9 @@ function search(searchString, token, resources, limit) {
   splitString.forEach(string => {
     const url = gsearchUrl + string + '?token=' + token + '&q=' + searchString + '&limit=' + limit
     promises.push(get(url).then(response => {
+      if (!response[0]) {
+        return
+      }
       response.forEach(el => {
         el.type = string
       })
