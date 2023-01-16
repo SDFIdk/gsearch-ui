@@ -88,11 +88,18 @@ class GSearchUI extends HTMLElement {
     this.input_container = this.querySelector('g-search-input')
     this.results_element = this.querySelector('g-search-results')
     this.input_element = this.input_container.querySelector('input')
-    
   }
 
   connectedCallback() {
     this.createDOM()
+
+    // Update some values based on attributes
+    if (this.dataset.placeholder) {
+      this.input_container.dataset.placeholder = this.dataset.placeholder 
+    }
+    if (this.dataset.api) {
+      setApiUrl(this.dataset.api)
+    }
 
     // add event listeners
     this.addEventListener('input-change', (event) => {
@@ -143,7 +150,7 @@ class GSearchUI extends HTMLElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'data-placeholder') {
-      if (newValue) {
+      if (newValue && this.input_container) {
         this.input_container.dataset.placeholder = newValue
       }
     }
