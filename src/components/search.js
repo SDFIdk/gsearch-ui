@@ -1,6 +1,6 @@
 import { GSearchInput } from './input.js'
 import { GSearchResults } from './results.js'
-import { search } from '../modules/api.js'
+import { search, setApiUrl } from '../modules/api.js'
 
 customElements.define('g-search-input', GSearchInput)
 customElements.define('g-search-results', GSearchResults)
@@ -11,7 +11,6 @@ class GSearchUI extends HTMLElement {
   input_container
   results_element
   timerId
-  gsearchApiUrl = 'https://api.dataforsyningen.dk/rest/gsearch/v1.0/' // Default API URL
   styles = /* css */`
 
     .gs-input {
@@ -149,12 +148,12 @@ class GSearchUI extends HTMLElement {
       }
     }
     if (name === 'data-api') {
-      this.gsearchApiUrl = newValue
+      setApiUrl(newValue)
     }
   }
 
   runSearch(searchString) {
-    search(this.gsearchApiUrl, searchString, this.dataset.token, this.dataset.resources, this.dataset.limit).then((response) => {
+    search(searchString, this.dataset.token, this.dataset.resources, this.dataset.limit).then((response) => {
       this.results_element.results = response.flat()
     })
   }
