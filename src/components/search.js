@@ -1,6 +1,6 @@
 import { GSearchInput } from './input.js'
 import { GSearchResults } from './results.js'
-import { search } from '../modules/api.js'
+import { search, setApiUrl } from '../modules/api.js'
 
 customElements.define('g-search-input', GSearchInput)
 customElements.define('g-search-results', GSearchResults)
@@ -67,7 +67,8 @@ class GSearchUI extends HTMLElement {
   // getters
   static get observedAttributes() { 
     return [
-      'data-placeholder'
+      'data-placeholder',
+      'data-api'
     ]
   }
 
@@ -145,6 +146,9 @@ class GSearchUI extends HTMLElement {
       if (newValue) {
         this.input_container.dataset.placeholder = newValue
       }
+    }
+    if (name === 'data-api') {
+      setApiUrl(newValue)
     }
   }
 
