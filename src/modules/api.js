@@ -77,12 +77,12 @@ function search(searchString, token, resources, limit) {
   splitString.forEach(string => {
     const url = apiUrl + string + '?token=' + token + '&q=' + searchString + '&limit=' + limit
     promises.push(get(url).then(response => {
-      if (!response[0]) {
-        return
+      if (response.length > 0) {
+        response.map(el => {
+          el.type = string
+          return el
+        })
       }
-      response.forEach(el => {
-        el.type = string
-      })
       return response
     }))
   })
