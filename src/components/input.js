@@ -28,6 +28,7 @@ export class GSearchInput extends HTMLElement {
 
   createDOM() {
     this.input_element = document.createElement('input')
+    this.input_element.type = 'search'
     this.input_element.className = 'gs-input'
     this.input_element.placeholder = this.dataset.placeholder || this.default_placeholder_text
     // Attach the elements to the component DOM
