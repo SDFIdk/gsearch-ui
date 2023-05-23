@@ -88,7 +88,7 @@
           <section id="resource-inputs" class="ds-grid"></section>
           <section class="resource-string">
             <input type="checkbox" id="resource-as-string"><label for="resource-as-string">Set resources as a string</label>
-            <p>To search all the resources, use the following string (also used by default when input is empty): navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postnummer,opstillingskreds,sogn,politikreds,matrikel</p>
+            <p>To search all the resources, use the following string (also used by default when input is empty): navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postnummer,opstillingskreds,sogn,politikreds,matrikel,matrikel_udgaaet</p>
           </section>
         </article>
         <article style="flex-grow: 1;">
@@ -121,7 +121,7 @@
       customElements.define('g-search', GSearchUI)
 
       // resources
-      const resources = ['navngivenvej','husnummer','adresse','stednavn','kommune','region','retskreds','postnummer','opstillingskreds','sogn','politikreds','matrikel']
+      const resources = ['navngivenvej','husnummer','adresse','stednavn','kommune','region','retskreds','postnummer','opstillingskreds','sogn','politikreds','matrikel', 'matrikel_udgaaet']
 
       // Create string input for resources
       const createStringInput = () => {
