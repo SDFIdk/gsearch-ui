@@ -23,6 +23,9 @@
         padding: var(--padding);
         margin: 1rem;
       }
+      .resource-string {
+        margin-top: 1rem;
+      }
       .demo {
         width: calc(100% - 2rem);
         height: 100%;
@@ -80,16 +83,18 @@
       <section class="config">
         <h3>Configurations</h3>
         
-        <div>
+        <article>
           <h4>Resources</h4>
-          <div id="resource-inputs" class="ds-grid"></div>
-          <input type="checkbox" id="resource-as-string"><label for="resource-as-string">Set resources as a string</label>
-          <p>To search all the resources, use the following string (also used by default when input is empty): navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postnummer,opstillingskreds,sogn,politikreds,matrikel</p>
-        </div>
-        <div style="flex-grow: 1;">
+          <section id="resource-inputs" class="ds-grid"></section>
+          <section class="resource-string">
+            <input type="checkbox" id="resource-as-string"><label for="resource-as-string">Set resources as a string</label>
+            <p>To search all the resources, use the following string (also used by default when input is empty): navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postnummer,opstillingskreds,sogn,politikreds,matrikel,matrikel_udgaaet</p>
+          </section>
+        </article>
+        <article style="flex-grow: 1;">
           <h4>Limit</h4>
           <input id="limit" placeholder="limit">
-        </div>
+        </article>
       
         <p>Links:
           <a href="https://github.com/SDFIdk/gsearch-ui" target=":blank">GSearch-UI on GitHub</a>
@@ -101,13 +106,13 @@
         <g-search id="gsearch" class="g-search"
           data-token="fd44f26ab5701c01ca9f570e507fe9ab">
         </g-search>
-        <div class="right-column">
+        <article class="right-column">
           <div id="map" class="map"></div>
           <div class="json">
             <pre id="json">
             </pre>
           </div>
-        </div>
+        </article>
       </section>
     </main>
     <script type="module">
@@ -116,7 +121,7 @@
       customElements.define('g-search', GSearchUI)
 
       // resources
-      const resources = ['navngivenvej','husnummer','adresse','stednavn','kommune','region','retskreds','postnummer','opstillingskreds','sogn','politikreds','matrikel']
+      const resources = ['navngivenvej','husnummer','adresse','stednavn','kommune','region','retskreds','postnummer','opstillingskreds','sogn','politikreds','matrikel', 'matrikel_udgaaet']
 
       // Create string input for resources
       const createStringInput = () => {
