@@ -27,7 +27,7 @@ You can then use GSearch-UI like in the example below.
   <g-search data-token="INSERTYOURTOKENHERE"></g-search>
 </main>
 <script type="module">
-  import { GSearchUI } from './search.js'
+  import { GSearchUI } from '@dataforsyningen/gsearch-ui'
   customElements.define('g-search', GSearchUI)
   document.querySelector("g-search").addEventListener('gsearch:select', (event) => {
     // handle the click here
