@@ -47,7 +47,7 @@ GSearch-UI is configured using html data attributes.
 |`data-limit`|The number of matches for each resource to be shown. The maximum value is 100.|no|yes|`10`|
 |`data-placeholder`|The placeholder text to show in the input field.|no|yes|`søg...`|
 |`data-api`|Use a custom URL for GSearch API (ie. if you want to use a test API)|no|yes|`https://api.dataforsyningen.dk/rest/gsearch/v1.0/`|
-|`data-filter`|Use a custom filter in the search query. [Learn about filters in the GSearch docs.](https://github.com/SDFIdk/gsearch/tree/main/doc#filter)`|no|no|none|
+|`data-filter`|Use a custom filter in the search query. [Learn about filters in the GSearch docs.](https://github.com/SDFIdk/gsearch/tree/main/doc#filter)|no|no|none|
 
 ### On click event
 
