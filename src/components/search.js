@@ -68,7 +68,8 @@ class GSearchUI extends HTMLElement {
   static get observedAttributes() { 
     return [
       'data-placeholder',
-      'data-api'
+      'data-api',
+      'data-filter'
     ]
   }
 
@@ -160,7 +161,7 @@ class GSearchUI extends HTMLElement {
   }
 
   runSearch(searchString) {
-    search(searchString, this.dataset.token, this.dataset.resources, this.dataset.limit).then((response) => {
+    search(searchString, this.dataset.token, this.dataset.resources, this.dataset.limit, this.dataset.filter).then((response) => {
       this.results_element.results = response.flat()
     })
   }

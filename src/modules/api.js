@@ -64,7 +64,7 @@ function HttpResponseHandler(response, is_json) {
   }
 }
 
-function search(searchString, token, resources, limit) {
+function search(searchString, token, resources, limit, filter) {
   // if missing values use defaults
   if (!resources) {
     resources = defaultResources
@@ -74,8 +74,9 @@ function search(searchString, token, resources, limit) {
   }
   const promises = []
   const splitString = resources.split(',')
+  const filterstr = filter ? encodeURIComponent(filter) : false
   splitString.forEach(string => {
-    const url = apiUrl + string + '?token=' + token + '&q=' + searchString + '&limit=' + limit
+    const url = `${ apiUrl }${ string }?token=${ token }&q=${ searchString }&limit=${ limit }${ filterstr ? `&filter=${ filterstr }` : '' }`
     promises.push(get(url).then(response => {
       if (response.length > 0) {
         response.map(el => {
