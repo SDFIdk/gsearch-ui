@@ -1,4 +1,5 @@
 import esbuild from 'esbuild'
+import { sassPlugin } from 'esbuild-sass-plugin'
 
 const entry_points = {
   search: './index.js',
@@ -19,7 +20,8 @@ if (process.env.NODE_ENV === 'production') {
     format: 'esm',
     loader: {
       '.ttf': 'file'
-    }
+    },
+    plugins: [sassPlugin()]
   })
   .then((result) => {
     
@@ -37,11 +39,12 @@ if (process.env.NODE_ENV === 'production') {
     entryPoints: entry_points,
     outdir: 'public',
     bundle: true,
+    splitting: true,
+    format: 'esm',
     loader: {
       '.ttf': 'file'
     },
-    splitting: true,
-    format: 'esm'
+    plugins: [sassPlugin()]
   })
   .then((result) => {
     let { host, port } = result.serve({
