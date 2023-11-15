@@ -42,6 +42,7 @@ export class GSearchInput extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue === newValue) return
     if (name === 'data-placeholder') {
       if (newValue) {
         this.input_element.placeholder = newValue
