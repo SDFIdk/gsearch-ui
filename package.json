@@ -30,6 +30,7 @@
   "homepage": "https://github.com/SDFIdk/gsearch-ui#readme",
   "devDependencies": {
     "@dataforsyningen/css": "^3.3.0",
-    "esbuild": "^0.17.19"
+    "esbuild": "^0.17.19",
+    "express": "^4.18.2"
   }
 }
