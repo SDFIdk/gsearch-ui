@@ -29,9 +29,9 @@
   },
   "homepage": "https://github.com/SDFIdk/gsearch-ui#readme",
   "devDependencies": {
-    "@dataforsyningen/css": "^3.11.0",
-    "@dataforsyningen/icons": "^0.7.0",
+    "@dataforsyningen/designsystem": "file:../designsystem",
     "esbuild": "^0.19.5",
+    "esbuild-plugin-svgr": "^2.1.0",
     "esbuild-sass-plugin": "^2.16.0",
     "express": "^4.18.2"
   }

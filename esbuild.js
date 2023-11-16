@@ -1,5 +1,6 @@
 import esbuild from 'esbuild'
 import { sassPlugin } from 'esbuild-sass-plugin'
+import svgr from 'esbuild-plugin-svgr'
 
 const entry_points = {
   search: './index.js',
@@ -21,7 +22,10 @@ if (process.env.NODE_ENV === 'production') {
     loader: {
       '.ttf': 'file'
     },
-    plugins: [sassPlugin()]
+    plugins: [
+      sassPlugin(),
+      svgr()
+    ]
   })
   .then((result) => {
     
@@ -44,7 +48,10 @@ if (process.env.NODE_ENV === 'production') {
     loader: {
       '.ttf': 'file'
     },
-    plugins: [sassPlugin()]
+    plugins: [
+      sassPlugin(),
+      svgr()
+    ]
   })
   .then((result) => {
     let { host, port } = result.serve({
