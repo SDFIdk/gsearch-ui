@@ -28,6 +28,8 @@ export class GSearchResources extends HTMLElement {
     resources.forEach(resource => {
       const button = document.createElement('g-search-resource-button')
       button.dataset.resource = resource.resource
+      button.dataset.title = resource.title
+      button.dataset.icon = resource.icon
       button.dataset.enabled = resource.enabled
       button.addEventListener('click', () => {
         resource.enabled = !resource.enabled

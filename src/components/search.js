@@ -2,6 +2,7 @@ import { GSearchInput } from './input.js'
 import { GSearchResults } from './results.js'
 import { GSearchResources } from './resources.js'
 import { search, setApiUrl } from '../modules/api.js'
+import { RESOURCES } from '../constants.js'
 
 customElements.define('g-search-input', GSearchInput)
 customElements.define('g-search-results', GSearchResults)
@@ -30,6 +31,11 @@ class GSearchUI extends HTMLElement {
       display: block;
     }
 
+    g-search-result-box {
+      display: flex;
+      align-items: center;
+    }
+
     g-search-resources {
       display: block;
       margin: 0.5rem 0;
@@ -43,7 +49,7 @@ class GSearchUI extends HTMLElement {
       list-style: none; 
       padding: 0; 
       margin: 0;
-      background-color: var(--gs-background, #fff);
+      background-color: var(--lys-steel, #ddd);
     }
 
     .gs-result-item {
@@ -66,6 +72,17 @@ class GSearchUI extends HTMLElement {
     .gs-result-item:hover,
     .gs-result-item:focus {
       background-color: var(--gs-highlight, #ddd);
+    }
+
+    .gs-result-item,
+    .gs-no-result-item {
+      padding: 0.5rem 0.25rem;
+      background-color: var(--gs-background, #fff);
+    }
+
+    .gs-result-item:hover p,
+    .gs-result-item:focus p {
+      color: var(--primary-inverse) !important;
     }
 
     .hidden {
@@ -198,8 +215,14 @@ class GSearchUI extends HTMLElement {
   setResources(resources) {
     if (!resources) return
     this.resources = resources.split(',').map(resource => {
-      const oldR = this.resources.find(r => r.resource === resource.resource)
-      return { resource: resource, enabled: oldR ? oldR.enabled : true }
+      const oldR = this.resources.find(r => r.resource === resource)
+      const rInfo = RESOURCES.find(r => r.resource === resource)
+      return { 
+        resource: resource,
+        title: rInfo ? rInfo.title : resource,
+        icon: rInfo ? rInfo.icon : '',
+        enabled: oldR ? oldR.enabled : true
+      }
     })
     this.resources_element.updateButtons(this.resources)
   }
