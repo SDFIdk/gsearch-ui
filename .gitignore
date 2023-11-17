@@ -1,5 +1,4 @@
 node_modules/
 dist/
-config.js
-public/style.css*
-public/search.js*
+public/
+!public/index.html

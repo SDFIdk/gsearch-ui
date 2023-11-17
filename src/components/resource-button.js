@@ -1,18 +1,18 @@
+import icons from '@dataforsyningen/designsystem/assets/designsystem-icons.svg'
+
 export class GSearchResourceButton extends HTMLElement {
 
   // public properties
   container
   styles = /* css */`
-    button[class*=ds-icon-] {
+    .gs-button {
       height: auto;
       padding: 0.25rem 0.5rem 0.25rem 2rem;
     }
 
-    .ds-icon-icon-plus::before {
-      background-size: 1.25rem auto;
+    .gs-button > svg {
       width: 1.25rem;
       height: 1.25rem;
-      top: auto;
     }
   `
   template = /* html */`
@@ -38,8 +38,9 @@ export class GSearchResourceButton extends HTMLElement {
   createDOM() {
     this.container = document.createElement('button')
     // replace icon name below with: this.dataset.icon
-    this.container.className = 'gs-button ' + ('ds-icon-icon-plus ' || ' ') + (this.dataset.enabled ? '' : 'outline')
+    this.container.className = 'gs-button ' + (this.dataset.enabled ? '' : 'outline')
     this.container.innerHTML = this.template
+    this.container.insertAdjacentHTML('beforeend', `<svg><use href="${ icons }#plus"></svg>`)
     this.container.insertAdjacentHTML('beforeend', (this.dataset.title || this.dataset.resource))
 
     // Attach the elements to the component DOM
