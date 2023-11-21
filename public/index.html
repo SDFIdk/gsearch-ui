@@ -11,8 +11,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.1.0/ol.css">
     <script src="https://cdn.jsdelivr.net/npm/proj4@2.8.0/dist/proj4-src.min.js"></script>
     <style>
-      input {
+      #limit, #string-resources {
         width: 100%;
+      }
+      [type=checkbox] {
+        margin-right: 0.25rem;
       }
       fieldset {
         margin: 0;
@@ -79,8 +82,8 @@
           <h4>Resources</h4>
           <section class="resource-string">
             <p>Resource Options</p>
-            <input type="checkbox" id="resource-as-string"><label for="resource-as-string">Set resources as a string</label>
-            <input type="checkbox" id="resource-filter"><label for="resource-filter">Show filter buttons for resources</label>
+            <label for="resource-as-string"><input type="checkbox" id="resource-as-string">Set resources as a string</label>
+            <label for="resource-filter"><input type="checkbox" id="resource-filter">Show filter buttons for resources</label>
           </section>
           <section id="resource-inputs"></section>
         </article>
@@ -164,10 +167,10 @@
           checkboxInput.id = resource
           checkboxInput.type = 'checkbox'
           const label = document.createElement('label')
-          label.htmlFor = resource
-          label.innerHTML = resource
-          fieldset.append(checkboxInput)
           fieldset.append(label)
+          label.htmlFor = resource
+          label.appendChild(checkboxInput)
+          checkboxInput.insertAdjacentHTML('afterend', resource)
           document.getElementById('resource-inputs').append(fieldset)
           // Add EventListener to the resources input
           checkboxInput.addEventListener('input', setResourcesFromCheckboxes)

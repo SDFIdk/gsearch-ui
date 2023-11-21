@@ -85,6 +85,12 @@ class GSearchUI extends HTMLElement {
       color: var(--primary-inverse) !important;
     }
 
+    .gs-resources-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+
     .hidden {
       display: none;
     }
