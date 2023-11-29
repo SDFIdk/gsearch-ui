@@ -26,7 +26,7 @@ export const RESOURCES = [
 	},
 	{
 		resource: 'region',
-		title: 'Navngivenvej',
+		title: 'Region',
 		icon: 'map-download-tegnetareal'
 	},
 	{

@@ -38,7 +38,7 @@ export class GSearchResourceButton extends HTMLElement {
 
   createDOM() {
     this.container = document.createElement('button')
-    this.container.className = 'gs-button ' + (this.dataset.enabled ? '' : 'outline')
+    this.container.className = 'gs-button ' + (this.dataset.enabled ? '' : 'secondary')
     this.container.innerHTML = this.template
     this.container.insertAdjacentHTML('beforeend', `<svg><use href="${ icons + '#' + this.dataset.icon}"></svg>`)
     this.container.insertAdjacentHTML('beforeend', (this.dataset.title || this.dataset.resource))
@@ -53,9 +53,9 @@ export class GSearchResourceButton extends HTMLElement {
 
   setEnabled(enabled) {
     if (enabled) {
-      this.container.classList.remove('outline')
+      this.container.classList.remove('secondary')
     } else {
-      this.container.classList.add('outline')
+      this.container.classList.add('secondary')
     }
   }
 }
