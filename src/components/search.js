@@ -80,11 +80,6 @@ class GSearchUI extends HTMLElement {
       background-color: var(--gs-background, #fff);
     }
 
-    .gs-result-item:hover p,
-    .gs-result-item:focus p {
-      color: var(--primary-inverse) !important;
-    }
-
     .gs-resources-list {
       display: flex;
       flex-wrap: wrap;
@@ -148,16 +143,17 @@ class GSearchUI extends HTMLElement {
     if (this.dataset.resourceFilterEnabled === 'true') this.resources_element.classList.add('hidden')
 
     // add event listeners
-    this.addEventListener('input-change', (event) => {
+    this.addEventListener('input-change', event => {
       this.debounce(() => {
         if (!event.detail) {
+          this.results_element.clear()
           return
         }
         this.runSearch(event.detail)
       })
     })
 
-    this.addEventListener('search-road', (event) => {
+    this.addEventListener('search-road', event => {
       // set input text to road + postnr + city
       this.input_container.searchString = event.detail.vejnavn
       clearTimeout(this.timerId)
@@ -165,7 +161,7 @@ class GSearchUI extends HTMLElement {
     })
 
     // Clears result list when a result was selected
-    this.addEventListener('gsearch:select', (event) => {
+    this.addEventListener('gsearch:select', event => {
       this.input_container.searchString = event.detail.label
       this.results_element.clear()
     })

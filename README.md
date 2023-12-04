@@ -54,6 +54,8 @@ GSearch-UI is configured using html data attributes.
 
 When clicking on a result displayed in the GSearch-UI it will dispatch a custom event, `gsearch:select`, that contains the result object in event.detail. The structure of the object depends on the resource. See more information about the different resouces here: https://github.com/SDFIdk/gsearch/tree/main/doc.
 
+Clicking the cross to clear the input field fires a custom event, `gsearch:clear`.
+
 ## Publish NPM
 
 Create a new release in Github to publish an updated NPM package.
