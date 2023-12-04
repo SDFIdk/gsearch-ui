@@ -145,7 +145,7 @@ class GSearchUI extends HTMLElement {
     // add event listeners
     this.addEventListener('input-change', event => {
       this.debounce(() => {
-        if (!event.detail) {
+        if (!event.detail || !(/\S/.test(event.detail))) {
           this.results_element.clear()
           return
         }
