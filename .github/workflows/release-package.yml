@@ -5,7 +5,7 @@ on:
     types: [created]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -18,7 +18,7 @@ jobs:
   # Important note:
   # This only works in github actions when you've added an "automation token" by the name of "NPM_TOKEN" to "repository secrets"
   publish-npm:
-    needs: build
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -26,6 +26,7 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org
+      - run: npm ci
       - run: npm run build
       - run: npm publish --access public --dry-run
         env:
