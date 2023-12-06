@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'production') {
     format: 'esm',
     loader: {
       '.ttf': 'file',
-      '.svg': 'file'
+      '.svg': 'text'
     },
     plugins: [
       sassPlugin()
@@ -46,7 +46,7 @@ if (process.env.NODE_ENV === 'production') {
     format: 'esm',
     loader: {
       '.ttf': 'file',
-      '.svg': 'file'
+      '.svg': 'text'
     },
     plugins: [
       sassPlugin()

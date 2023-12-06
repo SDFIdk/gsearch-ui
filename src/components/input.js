@@ -1,4 +1,4 @@
-import icons from '@dataforsyningen/designsystem/assets/designsystem-icons.svg'
+import closeIcon from '@dataforsyningen/designsystem/assets/icons/icon_close.svg'
 
 export class GSearchInput extends HTMLElement {
 
@@ -65,7 +65,7 @@ export class GSearchInput extends HTMLElement {
     // create clear search button
     this.clear_button = document.createElement('button')
     this.clear_button.className = 'quiet gs-input-button'
-    this.clear_button.innerHTML = `<svg><use href="${ icons + '#close'}"></svg>`
+    this.clear_button.innerHTML = closeIcon
     this.append(this.clear_button)
   }
 

@@ -1,6 +1,4 @@
-import icons from '@dataforsyningen/designsystem/assets/designsystem-icons.svg'
-
-import { RESOURCES } from '../constants.js'
+import { RESOURCES, FALLBACK_ICON } from '../constants.js'
 
 export class GSearchResultBox extends HTMLElement {
 
@@ -43,7 +41,7 @@ export class GSearchResultBox extends HTMLElement {
     const rInfo = RESOURCES.find(r => r.resource === this.data.type)
     const template = /* html */`
       <style>${ this.styles }</style>
-      <svg><use href="${ icons + '#' + (rInfo ? rInfo.icon : '')}"></svg>
+      ${ rInfo.icon ? rInfo.icon : FALLBACK_ICON }
       <p class="gs-title-text">${ title }</p>
     `
     this.innerHTML = template
