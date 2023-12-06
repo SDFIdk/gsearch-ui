@@ -53,8 +53,10 @@ if (process.env.NODE_ENV === 'production') {
     ]
   })
   .then((result) => {
-    let { host, port } = result.serve({
+    result.serve({
       servedir: 'public',
+    }).then(({ host, port }) => {
+      console.log('Serving at localhost:' + port)
     })
   })
   

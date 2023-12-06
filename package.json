@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "serve": "node server.js",
     "dev": "export NODE_ENV=development && node esbuild.js",
     "build": "export NODE_ENV=production && node esbuild.js",
     "test": "echo \"Error: no test specified\" && exit 0"
@@ -31,7 +32,6 @@
   "devDependencies": {
     "@dataforsyningen/designsystem": "^4.0.3",
     "esbuild": "^0.19.5",
-    "esbuild-sass-plugin": "^2.16.0",
-    "express": "^4.18.2"
+    "esbuild-sass-plugin": "^2.16.0"
   }
 }

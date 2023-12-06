@@ -49,7 +49,7 @@ class GSearchUI extends HTMLElement {
       list-style: none; 
       padding: 0; 
       margin: 0;
-      background-color: var(--lys-steel, #ddd);
+      background-color: var(--grey1, #ddd);
     }
 
     .gs-result-item {
@@ -131,7 +131,6 @@ class GSearchUI extends HTMLElement {
 
   connectedCallback() {
     this.createDOM()
-
     // Update some values based on attributes
     if (this.dataset.placeholder) {
       this.input_container.dataset.placeholder = this.dataset.placeholder 
@@ -193,7 +192,6 @@ class GSearchUI extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue === newValue) return
     if (name === 'data-placeholder') {
-      console.log(name, newValue)
       if (newValue && this.input_container) {
         this.input_container.dataset.placeholder = newValue
       }
