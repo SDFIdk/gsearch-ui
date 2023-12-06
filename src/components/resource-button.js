@@ -1,4 +1,4 @@
-import icons from '@dataforsyningen/designsystem/assets/designsystem-icons.svg'
+import { FALLBACK_ICON } from '../constants.js'
 
 export class GSearchResourceButton extends HTMLElement {
 
@@ -40,7 +40,7 @@ export class GSearchResourceButton extends HTMLElement {
     this.container = document.createElement('button')
     this.container.className = 'gs-button ' + (this.dataset.enabled ? '' : 'secondary')
     this.container.innerHTML = this.template
-    this.container.insertAdjacentHTML('beforeend', `<svg><use href="${ icons + '#' + this.dataset.icon}"></svg>`)
+    this.container.insertAdjacentHTML('beforeend', this.dataset.icon ? this.dataset.icon : FALLBACK_ICON)
     this.container.insertAdjacentHTML('beforeend', (this.dataset.title || this.dataset.resource))
 
     // Attach the elements to the component DOM

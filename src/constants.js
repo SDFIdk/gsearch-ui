@@ -1,67 +1,75 @@
+import closeIcon from '@dataforsyningen/designsystem/assets/icons/icon_close.svg'
+import mapVejIcon from '@dataforsyningen/designsystem/assets/icons/map_icon_vej.svg'
+import mapAdresseIcon from '@dataforsyningen/designsystem/assets/icons/map_icon_adresse.svg'
+import mapStedIcon from '@dataforsyningen/designsystem/assets/icons/map_icon_sted.svg'
+import mapPolygonIcon from '@dataforsyningen/designsystem/assets/icons/map_icon_download_tegnetareal.svg'
+
+export const FALLBACK_ICON = closeIcon
+
 export const RESOURCES = [
 	{
 		resource: 'navngivenvej',
 		title: 'Navngivenvej',
-		icon: 'map-vej'
+		icon: mapVejIcon
 	},
 	{
 		resource: 'husnummer',
 		title: 'Husnummer',
-		icon: 'map-adresse'
+		icon: mapAdresseIcon
 	},
 	{
 		resource: 'adresse',
 		title: 'Adresse',
-		icon: 'map-adresse'
+		icon: mapAdresseIcon
 	},
 	{
 		resource: 'stednavn',
 		title: 'Stednavn',
-		icon: 'map-sted'
+		icon: mapStedIcon
 	},
 	{
 		resource: 'kommune',
 		title: 'Kommune',
-		icon: 'map-download-tegnetareal'
+		icon: mapPolygonIcon
 	},
 	{
 		resource: 'region',
 		title: 'Region',
-		icon: 'map-download-tegnetareal'
+		icon: mapPolygonIcon
 	},
 	{
 		resource: 'retskreds',
 		title: 'Retskreds',
-		icon: 'map-download-tegnetareal'
+		icon: mapPolygonIcon
 	},
 	{
 		resource: 'postnummer',
 		title: 'Postnummer',
-		icon: 'map-download-tegnetareal'
+		icon: mapPolygonIcon
 	},
 	{
 		resource: 'opstillingskreds',
 		title: 'Opstillingskreds',
-		icon: 'map-download-tegnetareal'
+		icon: mapPolygonIcon
 	},
 	{
 		resource: 'sogn',
 		title: 'Sogn',
-		icon: 'map-download-tegnetareal'
+		icon: mapPolygonIcon
 	},
 	{
 		resource: 'politikreds',
 		title: 'Politikreds',
-		icon: 'map-download-tegnetareal'
+		icon: mapPolygonIcon
 	},
 	{
 		resource: 'matrikel',
 		title: 'Matrikel',
-		icon: 'map-download-tegnetareal'
+		icon: mapPolygonIcon
 	},
 	{
 		resource: 'matrikel_udgaaet',
 		title: 'Matrikel udgået',
-		icon: 'map-download-tegnetareal'
-	},
+		icon: mapPolygonIcon
+	}
 ]
