@@ -14,7 +14,6 @@ jobs:
           node-version: 20
       - run: npm ci
       - run: npm test
-      - run: npm run build
 
   # Important note:
   # This only works in github actions when you've added an "automation token" by the name of "NPM_TOKEN" to "repository secrets"
@@ -27,6 +26,7 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org
+      - run: npm run build
       - run: npm publish --access public --dry-run
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

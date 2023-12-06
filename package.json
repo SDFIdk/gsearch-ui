@@ -1,6 +1,6 @@
 {
   "name": "@dataforsyningen/gsearch-ui",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "UI component for GSearch.",
   "main": "public/search.js",
   "type": "module",
