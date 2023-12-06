@@ -1,10 +1,11 @@
 {
   "name": "@dataforsyningen/gsearch-ui",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "UI component for GSearch.",
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "serve": "node server.js",
     "dev": "export NODE_ENV=development && node esbuild.js",
     "build": "export NODE_ENV=production && node esbuild.js",
     "test": "echo \"Error: no test specified\" && exit 0"
@@ -29,7 +30,8 @@
   },
   "homepage": "https://github.com/SDFIdk/gsearch-ui#readme",
   "devDependencies": {
-    "@dataforsyningen/css": "^3.3.0",
-    "esbuild": "^0.17.19"
+    "@dataforsyningen/designsystem": "^4.0.3",
+    "esbuild": "^0.19.5",
+    "esbuild-sass-plugin": "^2.16.0"
   }
 }

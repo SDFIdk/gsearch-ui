@@ -11,8 +11,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.1.0/ol.css">
     <script src="https://cdn.jsdelivr.net/npm/proj4@2.8.0/dist/proj4-src.min.js"></script>
     <style>
-      input {
+      #limit, #string-resources {
         width: 100%;
+      }
+      [type=checkbox] {
+        margin-right: 0.25rem;
       }
       fieldset {
         margin: 0;
@@ -24,7 +27,10 @@
         margin: 1rem;
       }
       .resource-string {
-        margin-top: 1rem;
+        margin: 1rem;
+      }
+      #resource-inputs {
+        margin-bottom: 1rem;
       }
       .demo {
         width: calc(100% - 2rem);
@@ -64,17 +70,6 @@
         --gs-highlight: var(--highlight);
         --gs-current: var(--medium-steel);
       }
-      .gs-result-item p,
-      .gs-no-result-item p {
-        padding: 0.5rem 0.25rem;
-      }
-      .gs-result-item p {
-        border-bottom: solid 1px var(--lys-steel);
-      }
-      .gs-result-item:hover p,
-      .gs-result-item:focus p {
-        color: var(--primary-inverse) !important;
-      }
     </style>
   </head>
   <body>
@@ -85,11 +80,12 @@
         
         <article>
           <h4>Resources</h4>
-          <section id="resource-inputs" class="ds-grid"></section>
           <section class="resource-string">
-            <input type="checkbox" id="resource-as-string"><label for="resource-as-string">Set resources as a string</label>
-            <p>To search all the resources, use the following string (also used by default when input is empty): navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postnummer,opstillingskreds,sogn,politikreds,matrikel,matrikel_udgaaet</p>
+            <p>Resource Options</p>
+            <label for="resource-as-string"><input type="checkbox" id="resource-as-string">Set resources as a string</label>
+            <label for="resource-filter"><input type="checkbox" id="resource-filter">Show filter buttons for resources</label>
           </section>
+          <section id="resource-inputs"></section>
         </article>
         <article style="flex-grow: 1;">
           <h4>Limit</h4>
@@ -128,8 +124,13 @@
         const stringInput = document.createElement('input')
         stringInput.id = 'string-resources'
         stringInput.placeholder = 'Resources'
+        document.getElementById('resource-inputs').classList.remove('ds-grid')
         document.getElementById('resource-inputs').innerHTML = ''
         document.getElementById('resource-inputs').append(stringInput)
+        // Add explanation text
+        const explanationText = document.createElement('p')
+        explanationText.innerHTML = 'To search all the resources, use the following string (also used by default when input is empty): navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postnummer,opstillingskreds,sogn,politikreds,matrikel,matrikel_udgaaet'
+        document.getElementById('resource-inputs').append(explanationText)
         // Add EventListener to the resources input
         stringInput.addEventListener('input', (event) => {
           if (event.target.value) {
@@ -159,16 +160,17 @@
       // Create checkbox inputs for resources
       const createCheckboxInputs = () => {
         document.getElementById('resource-inputs').innerHTML = ''
+        document.getElementById('resource-inputs').classList.add('ds-grid')
         resources.forEach(resource => {
           const fieldset = document.createElement('fieldset')
           const checkboxInput = document.createElement('input')
           checkboxInput.id = resource
           checkboxInput.type = 'checkbox'
           const label = document.createElement('label')
-          label.htmlFor = resource
-          label.innerHTML = resource
-          fieldset.append(checkboxInput)
           fieldset.append(label)
+          label.htmlFor = resource
+          label.appendChild(checkboxInput)
+          checkboxInput.insertAdjacentHTML('afterend', resource)
           document.getElementById('resource-inputs').append(fieldset)
           // Add EventListener to the resources input
           checkboxInput.addEventListener('input', setResourcesFromCheckboxes)
@@ -187,6 +189,11 @@
           createCheckboxInputs()
           document.getElementById('gsearch').dataset.resources = resources.toString()
         }
+      })
+
+      // Add Eventlistener to resource-filter
+      document.getElementById('resource-filter').addEventListener('input', (event) => {
+        document.getElementById('gsearch').dataset.resourceFilterEnabled = event.target.checked
       })
 
       // Add EventListener to the limit input

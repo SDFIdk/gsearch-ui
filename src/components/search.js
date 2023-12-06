@@ -1,26 +1,44 @@
 import { GSearchInput } from './input.js'
 import { GSearchResults } from './results.js'
+import { GSearchResources } from './resources.js'
 import { search, setApiUrl } from '../modules/api.js'
+import { RESOURCES } from '../constants.js'
 
 customElements.define('g-search-input', GSearchInput)
 customElements.define('g-search-results', GSearchResults)
+customElements.define('g-search-resources', GSearchResources)
 
 class GSearchUI extends HTMLElement {
 
   // public properties
   input_container
+  resources = [] // element containing a list of the selected resources and whether they are enabled/disabled
   results_element
   timerId
   styles = /* css */`
-
     .gs-input {
       box-sizing: border-box;
+    }
+
+    g-search-input {
+      display: block;
+      height: fit-content;
     }
 
     g-search-results {
       position: relative; 
       width: 100%; 
       display: block;
+    }
+
+    g-search-result-box {
+      display: flex;
+      align-items: center;
+    }
+
+    g-search-resources {
+      display: block;
+      margin: 0.5rem 0;
     }
 
     .gs-result-list {
@@ -31,7 +49,7 @@ class GSearchUI extends HTMLElement {
       list-style: none; 
       padding: 0; 
       margin: 0;
-      background-color: var(--gs-background, #fff);
+      background-color: var(--grey1, #ddd);
     }
 
     .gs-result-item {
@@ -55,12 +73,29 @@ class GSearchUI extends HTMLElement {
     .gs-result-item:focus {
       background-color: var(--gs-highlight, #ddd);
     }
+
+    .gs-result-item,
+    .gs-no-result-item {
+      padding: 0.5rem 0.25rem;
+      background-color: var(--gs-background, #fff);
+    }
+
+    .gs-resources-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+
+    .hidden {
+      display: none;
+    }
   `
   template = /* html */`
     <style>
       ${ this.styles }
     </style>
-    <g-search-input data-placeholder="${ this.dataset.placeholder || '' }"></g-search-input>
+    <g-search-input></g-search-input>
+    <g-search-resources class="hidden"></g-search-resources>
     <g-search-results></g-search-results>
   `
 
@@ -69,7 +104,9 @@ class GSearchUI extends HTMLElement {
     return [
       'data-placeholder',
       'data-api',
-      'data-filter'
+      'data-filter',
+      'data-resources',
+      'data-resource-filter-enabled'
     ]
   }
 
@@ -86,14 +123,14 @@ class GSearchUI extends HTMLElement {
     this.append(container)
 
     // Save element references
-    this.input_container = this.querySelector('g-search-input')
     this.results_element = this.querySelector('g-search-results')
+    this.resources_element = this.querySelector('g-search-resources')
+    this.input_container = this.querySelector('g-search-input')
     this.input_element = this.input_container.querySelector('input')
   }
 
   connectedCallback() {
     this.createDOM()
-
     // Update some values based on attributes
     if (this.dataset.placeholder) {
       this.input_container.dataset.placeholder = this.dataset.placeholder 
@@ -101,18 +138,21 @@ class GSearchUI extends HTMLElement {
     if (this.dataset.api) {
       setApiUrl(this.dataset.api)
     }
+    this.setResources(this.dataset.resources)
+    if (this.dataset.resourceFilterEnabled === 'true') this.resources_element.classList.add('hidden')
 
     // add event listeners
-    this.addEventListener('input-change', (event) => {
+    this.addEventListener('input-change', event => {
       this.debounce(() => {
-        if (!event.detail) {
+        if (!event.detail || !(/\S/.test(event.detail))) {
+          this.results_element.clear()
           return
         }
         this.runSearch(event.detail)
       })
     })
 
-    this.addEventListener('search-road', (event) => {
+    this.addEventListener('search-road', event => {
       // set input text to road + postnr + city
       this.input_container.searchString = event.detail.vejnavn
       clearTimeout(this.timerId)
@@ -120,7 +160,7 @@ class GSearchUI extends HTMLElement {
     })
 
     // Clears result list when a result was selected
-    this.addEventListener('gsearch:select', (event) => {
+    this.addEventListener('gsearch:select', event => {
       this.input_container.searchString = event.detail.label
       this.results_element.clear()
     })
@@ -150,9 +190,21 @@ class GSearchUI extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue === newValue) return
     if (name === 'data-placeholder') {
       if (newValue && this.input_container) {
         this.input_container.dataset.placeholder = newValue
+      }
+    }
+    if (name === 'data-resources') {
+      this.setResources(newValue)
+    }
+    if (name === 'data-resource-filter-enabled') {
+      const bool = newValue === 'true'
+      if (bool) {
+        this.resources_element.classList.remove('hidden')
+      } else {
+        this.resources_element.classList.add('hidden')
       }
     }
     if (name === 'data-api') {
@@ -160,8 +212,27 @@ class GSearchUI extends HTMLElement {
     }
   }
 
+  setResources(resources) {
+    if (!resources) return
+    this.resources = resources.split(',').map(resource => {
+      const oldR = this.resources.find(r => r.resource === resource)
+      const rInfo = RESOURCES.find(r => r.resource === resource)
+      return { 
+        resource: resource,
+        title: rInfo ? rInfo.title : resource,
+        icon: rInfo ? rInfo.icon : '',
+        enabled: oldR ? oldR.enabled : true
+      }
+    })
+    this.resources_element.updateButtons(this.resources)
+  }
+
   runSearch(searchString) {
-    search(searchString, this.dataset.token, this.dataset.resources, this.dataset.limit, this.dataset.filter).then((response) => {
+    let resourceString = this.resources.filter(r => r.enabled).map(r => {
+      return r.resource
+    }).toString()
+    if (!resourceString) resourceString = this.dataset.resources
+    search(searchString, this.dataset.token, resourceString, this.dataset.limit, this.dataset.filter).then((response) => {
       this.results_element.results = response.flat()
     })
   }

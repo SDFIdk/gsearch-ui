@@ -1,8 +1,21 @@
+import icons from '@dataforsyningen/designsystem/assets/designsystem-icons.svg'
+
+import { RESOURCES } from '../constants.js'
+
 export class GSearchResultBox extends HTMLElement {
 
   // public properties
   data = {}
-
+  styles = /* css */`
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-right: 0.25rem;
+    }
+    p {
+      display: inline-block;
+    }
+  `
 
   // setters
 
@@ -27,7 +40,10 @@ export class GSearchResultBox extends HTMLElement {
   }
 
   updateResult(title) {
+    const rInfo = RESOURCES.find(r => r.resource === this.data.type)
     const template = /* html */`
+      <style>${ this.styles }</style>
+      <svg><use href="${ icons + '#' + (rInfo ? rInfo.icon : '')}"></svg>
       <p class="gs-title-text">${ title }</p>
     `
     this.innerHTML = template
