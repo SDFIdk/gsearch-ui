@@ -139,7 +139,7 @@ class GSearchUI extends HTMLElement {
       setApiUrl(this.dataset.api)
     }
     this.setResources(this.dataset.resources)
-    if (this.dataset.resourceFilterEnabled === 'true') this.resources_element.classList.add('hidden')
+    if (this.dataset.resourceFilterEnabled === 'true') this.resources_element?.classList.add('hidden')
 
     // add event listeners
     this.addEventListener('input-change', event => {
@@ -202,9 +202,9 @@ class GSearchUI extends HTMLElement {
     if (name === 'data-resource-filter-enabled') {
       const bool = newValue === 'true'
       if (bool) {
-        this.resources_element.classList.remove('hidden')
+        this.resources_element?.classList.remove('hidden')
       } else {
-        this.resources_element.classList.add('hidden')
+        this.resources_element?.classList.add('hidden')
       }
     }
     if (name === 'data-api') {
@@ -224,7 +224,7 @@ class GSearchUI extends HTMLElement {
         enabled: oldR ? oldR.enabled : true
       }
     })
-    this.resources_element.updateButtons(this.resources)
+    this.resources_element?.updateButtons(this.resources)
   }
 
   runSearch(searchString) {
