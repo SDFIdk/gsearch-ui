@@ -139,7 +139,7 @@ class GSearchUI extends HTMLElement {
       setApiUrl(this.dataset.api)
     }
     this.setResources(this.dataset.resources)
-    if (this.dataset.resourceFilterEnabled === 'true') this.resources_element?.classList.add('hidden')
+    if (this.dataset.resourceFilterEnabled === 'true') this.resources_element?.classList.remove('hidden')
 
     // add event listeners
     this.addEventListener('input-change', event => {
