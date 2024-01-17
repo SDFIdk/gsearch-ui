@@ -1,6 +1,7 @@
 let apiUrl = 'https://api.dataforsyningen.dk/rest/gsearch/v2.0/' // Default API URL'
 const defaultResources = 'navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postnummer,opstillingskreds,sogn,politikreds,matrikel,matrikel_udgaaet'
 const defaultLimit = 10
+const defaultSrid = 25832
 
 let error_msg
 
@@ -64,7 +65,7 @@ function HttpResponseHandler(response, is_json) {
   }
 }
 
-function search(searchString, token, resources, limit, filter) {
+function search(searchString, token, resources, limit, filter, srid) {
   // if missing values use defaults
   if (!resources) {
     resources = defaultResources
@@ -72,11 +73,14 @@ function search(searchString, token, resources, limit, filter) {
   if (!limit) {
     limit = defaultLimit
   }
+  if (!srid) {
+    srid = defaultSrid
+  }
   const promises = []
   const splitString = resources.split(',')
   const filterstr = filter ? encodeURIComponent(filter) : false
   splitString.forEach(string => {
-    const url = `${ apiUrl }${ string }?token=${ token }&q=${ searchString }&limit=${ limit }${ filterstr ? `&filter=${ filterstr }` : '' }`
+    const url = `${ apiUrl }${ string }?token=${ token }&q=${ searchString }&limit=${ limit }&srid=${ srid }${ filterstr ? `&filter=${ filterstr }` : '' }`
     promises.push(get(url).then(response => {
       if (response.length > 0) {
         response.map(el => {
