@@ -104,6 +104,7 @@ class GSearchUI extends HTMLElement {
     return [
       'data-placeholder',
       'data-api',
+      'data-srid',
       'data-filter',
       'data-resources',
       'data-resource-filter-enabled'
@@ -232,7 +233,7 @@ class GSearchUI extends HTMLElement {
       return r.resource
     }).toString()
     if (!resourceString) resourceString = this.dataset.resources
-    search(searchString, this.dataset.token, resourceString, this.dataset.limit, this.dataset.filter).then((response) => {
+    search(searchString, this.dataset.token, resourceString, this.dataset.limit, this.dataset.filter, this.dataset.srid).then((response) => {
       this.results_element.results = response.flat()
     })
   }
