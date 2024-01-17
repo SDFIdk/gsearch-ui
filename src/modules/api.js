@@ -1,4 +1,4 @@
-let apiUrl = 'https://api.dataforsyningen.dk/rest/gsearch/v1.0/' // Default API URL'
+let apiUrl = 'https://api.dataforsyningen.dk/rest/gsearch/v2.0/' // Default API URL'
 const defaultResources = 'navngivenvej,husnummer,adresse,stednavn,kommune,region,retskreds,postnummer,opstillingskreds,sogn,politikreds,matrikel,matrikel_udgaaet'
 const defaultLimit = 10
 
