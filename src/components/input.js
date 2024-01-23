@@ -10,7 +10,7 @@ export class GSearchInput extends HTMLElement {
     g-search-input {
       position: relative;
     }
-    input[type=search].hide-icon {
+    g-search-input > input[type=search].hide-icon {
       background-image: none;
     }
     .gs-input-button {

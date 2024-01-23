@@ -5,12 +5,12 @@ export class GSearchResultBox extends HTMLElement {
   // public properties
   data = {}
   styles = /* css */`
-    svg {
+    g-search-result-box > svg {
       width: 1.25rem;
       height: 1.25rem;
       margin-right: 0.25rem;
     }
-    p {
+    g-search-result-box > p {
       display: inline-block;
     }
   `
