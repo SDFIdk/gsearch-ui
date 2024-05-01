@@ -80,8 +80,13 @@ function search(searchString, token, resources, limit, filter, srid) {
   const splitString = resources.split(',')
   const filterstr = filter ? encodeURIComponent(filter) : false
   splitString.forEach(string => {
-    const url = `${ apiUrl }${ string }?token=${ token }&q=${ searchString }&limit=${ limit }&srid=${ srid }${ filterstr ? `&filter=${ filterstr }` : '' }`
-    promises.push(get(url).then(response => {
+    const url = `${ apiUrl }${ string }?q=${ searchString }&limit=${ limit }&srid=${ srid }${ filterstr ? `&filter=${ filterstr }` : '' }`
+    const config = {
+      headers: {
+        "token": token,
+      },
+    }
+    promises.push(get(url, config).then(response => {
       if (response.length > 0) {
         response.map(el => {
           el.type = string
