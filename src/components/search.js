@@ -255,6 +255,9 @@ class GSearchUI extends HTMLElement {
 
   moveActiveItemHandler(direction) {
     const current_item = this.querySelector('.active')
+    if (!current_item) {
+      return
+    }
     const next_item = current_item[`${ direction }Sibling`]
     if (next_item) {
       this.setFocusOnElement(next_item)
@@ -264,6 +267,9 @@ class GSearchUI extends HTMLElement {
 
   selectActiveItemHandler() {
     const current_item = this.querySelector('.active')
+    if (!current_item) {
+      return
+    }
     // Dispatch click event to set selection methods on element in motion
     current_item.dispatchEvent(new Event('click'))
     this.endSearchHandler()
