@@ -4,9 +4,15 @@ import { GSearchResources } from './resources.js'
 import { search, setApiUrl } from '../modules/api.js'
 import { RESOURCES } from '../constants.js'
 
-customElements.define('g-search-input', GSearchInput)
-customElements.define('g-search-results', GSearchResults)
-customElements.define('g-search-resources', GSearchResources)
+if (!customElements.get('g-search-input')) {
+  customElements.define('g-search-input', GSearchInput)
+}
+if (!customElements.get('g-search-results')) {
+  customElements.define('g-search-results', GSearchResults)
+}
+if (!customElements.get('g-search-resources')) {
+  customElements.define('g-search-resources', GSearchResources)
+}
 
 class GSearchUI extends HTMLElement {
 

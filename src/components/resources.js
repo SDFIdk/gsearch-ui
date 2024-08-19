@@ -1,6 +1,8 @@
 import { GSearchResourceButton } from './resource-button.js'
 
-customElements.define('g-search-resource-button', GSearchResourceButton)
+if (!customElements.get('g-search-resource-button')) {
+  customElements.define('g-search-resource-button', GSearchResourceButton)
+}
 
 export class GSearchResources extends HTMLElement {
 

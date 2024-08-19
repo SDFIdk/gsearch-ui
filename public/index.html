@@ -115,7 +115,9 @@
     <script type="module">
       // Import and define GSearchUI
       import { GSearchUI } from './search.js'
-      customElements.define('g-search', GSearchUI)
+      if (!customElements.get('g-search')) {
+        customElements.define('g-search', GSearchUI)
+      }
 
       // resources
       const resources = ['navngivenvej','husnummer','adresse','stednavn','kommune','region','retskreds','postnummer','opstillingskreds','sogn','politikreds','matrikel', 'matrikel_udgaaet']

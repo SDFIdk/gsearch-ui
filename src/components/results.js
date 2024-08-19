@@ -2,8 +2,12 @@ import { GSearchResultBox } from './result-box.js'
 import { GSearchNoResultBox } from './no-result-box.js'
 import { normalize } from "../modules/data.js"
 
-customElements.define('g-search-result-box', GSearchResultBox)
-customElements.define('g-search-no-result-box', GSearchNoResultBox)
+if (!customElements.get('g-search-result-box')) {
+  customElements.define('g-search-result-box', GSearchResultBox)
+}
+if (!customElements.get('g-search-no-result-box')) {
+  customElements.define('g-search-no-result-box', GSearchNoResultBox)
+}
 
 export class GSearchResults extends HTMLElement {
 

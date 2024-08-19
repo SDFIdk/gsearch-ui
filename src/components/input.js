@@ -1,4 +1,4 @@
-import closeIcon from '@dataforsyningen/designsystem/assets/icons/icon_close.svg'
+import closeIcon from '@dataforsyningen/designsystem/assets/icons/close.svg'
 
 export class GSearchInput extends HTMLElement {
 

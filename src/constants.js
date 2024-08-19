@@ -1,8 +1,8 @@
-import closeIcon from '@dataforsyningen/designsystem/assets/icons/icon_close.svg'
-import mapVejIcon from '@dataforsyningen/designsystem/assets/icons/map_icon_vej.svg'
-import mapAdresseIcon from '@dataforsyningen/designsystem/assets/icons/map_icon_adresse.svg'
-import mapStedIcon from '@dataforsyningen/designsystem/assets/icons/map_icon_sted.svg'
-import mapPolygonIcon from '@dataforsyningen/designsystem/assets/icons/map_icon_download_tegnetareal.svg'
+import closeIcon from '@dataforsyningen/designsystem/assets/icons/close.svg'
+import mapVejIcon from '@dataforsyningen/designsystem/assets/icons/road.svg'
+import mapAdresseIcon from '@dataforsyningen/designsystem/assets/icons/pointer-address.svg'
+import mapStedIcon from '@dataforsyningen/designsystem/assets/icons/pointer-place.svg'
+import mapPolygonIcon from '@dataforsyningen/designsystem/assets/icons/polygon.svg'
 
 export const FALLBACK_ICON = closeIcon
 

@@ -7,13 +7,8 @@ export class GSearchResourceButton extends HTMLElement {
   styles = /* css */`
     .gs-button {
       height: auto;
-      padding: 0.25rem 0.5rem 0.25rem 0.25rem;
-    }
-
-    .gs-button > svg {
-      width: 1.25rem;
-      height: 1.25rem;
-      margin-right: 0.25rem;
+      padding-top: 0.25rem;
+      padding-bottom: 0.25rem;
     }
   `
   template = /* html */`
@@ -40,7 +35,7 @@ export class GSearchResourceButton extends HTMLElement {
     this.container = document.createElement('button')
     this.container.className = 'gs-button ' + (this.dataset.enabled ? '' : 'secondary')
     this.container.innerHTML = this.template
-    this.container.insertAdjacentHTML('beforeend', this.dataset.icon ? this.dataset.icon : FALLBACK_ICON)
+    this.container.insertAdjacentHTML('afterbegin', this.dataset.icon ? this.dataset.icon : FALLBACK_ICON)
     this.container.insertAdjacentHTML('beforeend', (this.dataset.title || this.dataset.resource))
 
     // Attach the elements to the component DOM
