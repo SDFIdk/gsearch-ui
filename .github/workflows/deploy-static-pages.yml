@@ -40,7 +40,7 @@ jobs:
           node-version: '20.x'
           cache: 'npm'
       - run: npm ci
-      - run: npm run build
+      - run: export API_TOKEN=${{ secrets.API_TOKEN }} DF_TOKEN_U=${{ secrets.DF_TOKEN_U }} DF_TOKEN_P=${{ secrets.DF_TOKEN_P }} && npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

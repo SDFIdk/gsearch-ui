@@ -2,3 +2,4 @@ node_modules/
 dist/
 public/*
 !public/index.html
+config.js

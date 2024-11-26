@@ -7,9 +7,10 @@
     <title>Gsearch-ui</title>
     <link rel="stylesheet" href="./style.css">
     <!-- Import openlayers to display search results on a map-->
-    <script src="https://cdn.jsdelivr.net/npm/ol@v7.1.0/dist/ol.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.1.0/ol.css">
-    <script src="https://cdn.jsdelivr.net/npm/proj4@2.8.0/dist/proj4-src.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ol@v10.2.1/dist/ol.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v10.2.1/ol.css">
+    <script src="https://cdn.jsdelivr.net/npm/proj4@2.15.0/dist/proj4-src.min.js"></script>
+    <script src="../config.js"></script>
     <style>
       #limit, #string-resources {
         width: 100%;
@@ -100,7 +101,6 @@
       </section>
       <section class="demo">
         <g-search id="gsearch" class="g-search"
-          data-token="fd44f26ab5701c01ca9f570e507fe9ab"
           data-srid="25832">
         </g-search>
         <article class="right-column">
@@ -118,6 +118,9 @@
       if (!customElements.get('g-search')) {
         customElements.define('g-search', GSearchUI)
       }
+
+      // set token
+      document.getElementById('gsearch').dataset.token = config.API_TOKEN
 
       // resources
       const resources = ['navngivenvej','husnummer','adresse','stednavn','kommune','region','retskreds','postnummer','opstillingskreds','sogn','politikreds','matrikel', 'matrikel_udgaaet']
@@ -211,7 +214,7 @@
       const parser = new ol.format.WMTSCapabilities()
       proj4.defs('EPSG:25832', '+proj=utm +zone=32 +ellps=GRS80 +units=m +no_defs')
       ol.proj.proj4.register(proj4)
-      fetch('https://api.dataforsyningen.dk/topo_skaermkort_daempet_DAF?service=WMTS&request=GetCapabilities')
+      fetch(`https://services.datafordeler.dk/DKskaermkort/topo_skaermkort_daempet/1.0.0/wmts?service=wmts&request=GetCapabilities&username=${config.DF_TOKEN_U}&password=${config.DF_TOKEN_P}`)
         .then(function (response) {
           return response.text()
         })
@@ -223,7 +226,7 @@
           })
           const source = new ol.source.WMTS(options)
           source.tileLoadFunction = (imageTile, src) => {
-            imageTile.getImage().src = src + '&token=' + document.getElementById('gsearch').dataset.token
+            imageTile.getImage().src = src
           }
           map = new ol.Map({
             layers: [
