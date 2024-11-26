@@ -48,7 +48,6 @@ if (existsSync(`config.js`)) {
     .replace('[ INSERT DF_TOKEN_U ]', process.env.DF_TOKEN_U)
     .replace('[ INSERT DF_TOKEN_P ]', process.env.DF_TOKEN_P)
   writeFile(`${outDir}/config.js`, content)
-  console.log('config.js created')
 }
 
 if (process.env.NODE_ENV === 'production') {
