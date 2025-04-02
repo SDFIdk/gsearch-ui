@@ -53,7 +53,7 @@ GSearch-UI is configured using html data attributes.
 
 ### On click event
 
-When clicking on a result displayed in the GSearch-UI it will dispatch a custom event, `gsearch:select`, that contains the result object in event.detail. The structure of the object depends on the resource. See more information about the different resouces here: https://github.com/SDFIdk/gsearch/tree/main/doc.
+When clicking on a result displayed in the GSearch-UI it will dispatch a custom event, `gsearch:select`, that contains the result object in event.detail. The structure of the object depends on the resource. See more information about the different resouces here: https://github.com/SDFIdk/gsearch/tree/v2.0/doc.
 
 Clicking the cross to clear the input field fires a custom event, `gsearch:clear`.
 
