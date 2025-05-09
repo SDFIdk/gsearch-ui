@@ -47,7 +47,7 @@ GSearch-UI is configured using html data attributes.
 |`resource-filter-enabled`|Show filter buttons for the selected resources to allow the user to toggle resources.|no|yes|`false`|
 |`data-limit`|The number of matches for each resource to be shown. The maximum value is 100.|no|yes|`10`|
 |`data-placeholder`|The placeholder text to show in the input field.|no|yes|`søg...`|
-|`data-api`|Use a custom URL for GSearch API (ie. if you want to use a test API)|no|yes|`https://api.dataforsyningen.dk/rest/gsearch/v1.0/`|
+|`data-api`|Use a custom URL for GSearch API (ie. if you want to use a test API)|no|yes|`https://api.dataforsyningen.dk/rest/gsearch/v2.0/`|
 |`data-filter`|Use a custom filter in the search query. [Learn about filters in the GSearch docs.](https://github.com/SDFIdk/gsearch/tree/main/doc#filter)|no|no|`none`|
 |`data-srid`|The coordinate system of the returned geometries. The following values are allowed: 2196, 2197, 2198, 3857, 4093, 4094, 4095, 4096, 4326, 25832, 25833. |no|yes|`25832`|
 

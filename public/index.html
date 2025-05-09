@@ -7,8 +7,8 @@
     <title>Gsearch-ui</title>
     <link rel="stylesheet" href="./style.css">
     <!-- Import openlayers to display search results on a map-->
-    <script src="https://cdn.jsdelivr.net/npm/ol@v10.2.1/dist/ol.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v10.2.1/ol.css">
+    <script src="https://cdn.jsdelivr.net/npm/ol@v10.5.0/dist/ol.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v10.5.0/ol.css">
     <script src="https://cdn.jsdelivr.net/npm/proj4@2.15.0/dist/proj4-src.min.js"></script>
     <script src="config.js"></script>
     <style>
@@ -56,6 +56,7 @@
         flex-flow: column nowrap;
         border: 1px solid var(--muted-color);
         border-radius: var(--border-radius);
+        overflow: hidden;
       }
       .map {
         width: 100%;

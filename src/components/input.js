@@ -13,7 +13,7 @@ export class GSearchInput extends HTMLElement {
     g-search-input > input[type=search].hide-icon {
       background-image: none;
     }
-    .gs-input-button {
+    button:has(svg).gs-input-button {
       display: none;
       position: absolute;
       right: 0;
@@ -21,8 +21,8 @@ export class GSearchInput extends HTMLElement {
       padding-top: 0;
       padding-bottom: 0;
     }
-    button.gs-input-button > svg:first-child {
-      margin-right: -0.5rem;
+    button:has(svg).gs-input-button > svg.ds-icon:first-child {
+      margin: 0 -0.5rem;
     }
   `
 

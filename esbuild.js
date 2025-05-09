@@ -1,5 +1,4 @@
 import esbuild from 'esbuild'
-import { sassPlugin } from 'esbuild-sass-plugin'
 import { open } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 
@@ -64,10 +63,7 @@ if (process.env.NODE_ENV === 'production') {
     loader: {
       '.ttf': 'file',
       '.svg': 'text'
-    },
-    plugins: [
-      sassPlugin()
-    ]
+    }
   })
   .then((result) => {
     
@@ -90,10 +86,7 @@ if (process.env.NODE_ENV === 'production') {
     loader: {
       '.ttf': 'file',
       '.svg': 'text'
-    },
-    plugins: [
-      sassPlugin()
-    ]
+    }
   })
   .then((result) => {
     result.serve({
